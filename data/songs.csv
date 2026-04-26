@@ -1,0 +1,101 @@
+id,title,artist,genre,mood,energy,tempo_bpm,valence,danceability,acousticness
+1,Sunrise City,Neon Echo,pop,happy,0.82,118,0.84,0.79,0.18
+2,Midnight Coding,LoRoom,lofi,chill,0.42,78,0.56,0.62,0.71
+3,Storm Runner,Voltline,rock,intense,0.91,152,0.48,0.66,0.10
+4,Library Rain,Paper Lanterns,lofi,chill,0.35,72,0.60,0.58,0.86
+5,Gym Hero,Max Pulse,pop,intense,0.93,132,0.77,0.88,0.05
+6,Spacewalk Thoughts,Orbit Bloom,ambient,chill,0.28,60,0.65,0.41,0.92
+7,Coffee Shop Stories,Slow Stereo,jazz,relaxed,0.37,90,0.71,0.54,0.89
+8,Night Drive Loop,Neon Echo,synthwave,moody,0.75,110,0.49,0.73,0.22
+9,Focus Flow,LoRoom,lofi,focused,0.40,80,0.59,0.60,0.78
+10,Rooftop Lights,Indigo Parade,indie pop,happy,0.76,124,0.81,0.82,0.35
+11,Neon Dreams,Synth Wave Co,electronic,dreamy,0.55,95,0.72,0.68,0.12
+12,Beat Drop Bass,Cipher Crew,hip-hop,energetic,0.87,140,0.75,0.85,0.08
+13,Velvet Soul,Luna Rivers,soul,romantic,0.45,100,0.78,0.70,0.65
+14,Metal Surge,Iron Gods,metal,aggressive,0.95,160,0.35,0.72,0.06
+15,Piano Ascension,Melody Keys,classical,inspirational,0.62,110,0.88,0.15,0.98
+16,Reggae Sunset,Island Vibes,reggae,playful,0.65,105,0.82,0.76,0.42
+17,Desert Echo,The Wanderers,indie rock,adventurous,0.78,128,0.68,0.64,0.48
+18,Void Whisper,Dark Matter,dark ambient,introspective,0.25,55,0.32,0.25,0.88
+19,Blue Velvet,Soul Collective,soul,melancholic,0.38,92,0.45,0.55,0.72
+20,Thunder Road,Rock Legends,rock,aggressive,0.89,145,0.42,0.68,0.08
+21,Funky Groove,The Groove Kings,funk,energetic,0.85,115,0.79,0.82,0.35
+22,Midnight Rain,Folk Wanderer,folk,introspective,0.35,88,0.58,0.42,0.89
+23,Neon Nights,Synth Masters,synthwave,adventurous,0.72,108,0.68,0.71,0.18
+24,Ocean Waves,Ambient Drift,ambient,relaxed,0.22,65,0.62,0.35,0.94
+25,City Lights,K-Pop Stars,k-pop,happy,0.79,128,0.82,0.85,0.22
+26,Digital Horizons,Cyber Dreams,electronic,dreamy,0.58,98,0.71,0.65,0.10
+27,Bass Drop Thunder,Trap Nation,hip-hop,intense,0.88,140,0.73,0.80,0.06
+28,Tender Heart,Jazz Trio,jazz,romantic,0.42,96,0.74,0.52,0.88
+29,Mountain Echo,Indie Folk,indie folk,contemplative,0.40,85,0.61,0.48,0.91
+30,Electric Pulse,Electronic Beats,electronic,energetic,0.82,135,0.77,0.84,0.12
+31,Whispered Dreams,Pillow Talk,lofi,focused,0.38,75,0.58,0.60,0.80
+32,Cyberpunk City,Future Sounds,synthwave,moody,0.78,120,0.52,0.74,0.15
+33,Golden Hour,Indie Legends,indie pop,inspirational,0.68,110,0.79,0.73,0.38
+34,Break It Down,Bass Kings,dubstep,aggressive,0.91,140,0.38,0.72,0.04
+35,Quiet Moments,Piano House,classical,peaceful,0.32,70,0.85,0.18,0.97
+36,Reggae Dreams,Rastaman,reggae,relaxed,0.62,100,0.80,0.74,0.45
+37,Urban Jungle,Hip-Hop Collective,hip-hop,playful,0.72,120,0.75,0.78,0.25
+38,Starlight,Indie Artists,indie rock,dreamy,0.65,115,0.72,0.62,0.42
+39,Techno Waves,Berlin Nights,techno,energetic,0.87,128,0.65,0.81,0.08
+40,Soulful Strings,String Ensemble,soul,inspirational,0.55,105,0.77,0.68,0.78
+41,Punk Rock Anthem,Punk Rebels,punk,aggressive,0.92,155,0.48,0.75,0.09
+42,Bossa Nova Breeze,Latin Jazz,bossa nova,relaxed,0.48,90,0.73,0.60,0.85
+43,Grunge Days,Grunge Kings,grunge,introspective,0.84,135,0.35,0.65,0.22
+44,Afrobeats Sunrise,Afro Vibes,afrobeats,happy,0.80,110,0.81,0.83,0.32
+45,Melodic Dreams,Synthpop Wave,synthpop,happy,0.75,118,0.80,0.78,0.20
+46,Downtempo Bliss,Chill Collective,downtempo,chill,0.35,70,0.62,0.55,0.82
+47,Blues Through Time,Blues Masters,blues,melancholic,0.45,95,0.48,0.58,0.88
+48,Gospel Life,Soul Singers,gospel,inspirational,0.70,110,0.82,0.72,0.74
+49,House Party,House Masters,house,energetic,0.88,130,0.76,0.84,0.10
+50,Country Roads,Country Stars,country,contemplative,0.58,105,0.71,0.62,0.82
+51,Death Metal Storm,Metal Legends,death metal,aggressive,0.94,160,0.30,0.68,0.05
+52,Progressive Mind,Progressive Rock,progressive rock,introspective,0.68,125,0.65,0.60,0.35
+53,Vaporwave Vibes,Digital Sunset,vaporwave,moody,0.40,85,0.55,0.50,0.75
+54,Boom Bap Flow,Hip-Hop Classic,boom bap,focused,0.65,95,0.68,0.70,0.45
+55,Drum and Bass Rush,Jungle Masters,drum and bass,intense,0.93,175,0.58,0.80,0.08
+56,Electropop Energy,Pop Synth,electropop,happy,0.81,125,0.83,0.82,0.18
+57,Hard Rock Thunder,Rock Gods,hard rock,aggressive,0.90,150,0.45,0.70,0.12
+58,Cloud Rap Dreams,Cloud Collective,cloud rap,dreamy,0.52,90,0.64,0.58,0.68
+59,Reggaeton Beat,Latin Kings,reggaeton,energetic,0.83,95,0.79,0.88,0.28
+60,Alternative Vibes,Alt Nation,alternative rock,moody,0.76,118,0.58,0.68,0.32
+61,World Music Journey,Global Sounds,world music,adventurous,0.60,100,0.70,0.65,0.72
+62,Experimental Sounds,Avant Garde,experimental,introspective,0.48,105,0.50,0.45,0.55
+63,R&B Nights,R&B Kings,r-b,romantic,0.62,100,0.75,0.72,0.68
+64,Disco Fever,Disco Revival,disco,playful,0.87,115,0.81,0.88,0.22
+65,Singer Songwriter Tales,Acoustic Artist,singer-songwriter,contemplative,0.42,88,0.68,0.52,0.92
+66,Indie Electronica,Electro Indie,electronic,dreamy,0.60,105,0.70,0.62,0.18
+67,Hypnotic Beats,Trance Master,techno,intense,0.86,135,0.62,0.79,0.08
+68,Trap Soul,Trap Collective,trap,moody,0.80,140,0.60,0.76,0.20
+69,Peaceful Morning,Nature Sounds,ambient,peaceful,0.20,60,0.65,0.30,0.96
+70,Jazz Lounge,Jazz Standards,jazz,relaxed,0.38,92,0.72,0.50,0.90
+71,Metal Shred,Shred Masters,metal,intense,0.96,165,0.32,0.70,0.06
+72,Indie Discovery,Indie Collective,indie pop,adventurous,0.72,120,0.75,0.70,0.40
+73,Cosmic Journey,Ambient Explorers,dark ambient,contemplative,0.30,70,0.45,0.28,0.88
+74,Urban Flow,Street Hip-Hop,hip-hop,focused,0.68,110,0.70,0.72,0.30
+75,Country Nights,Country Singers,country,melancholic,0.52,100,0.65,0.58,0.85
+76,Orchestral Triumph,Symphony,classical,inspirational,0.62,110,0.87,0.20,0.98
+77,Deep House Groove,Deep House,house,relaxed,0.65,120,0.68,0.76,0.22
+78,Alt Country Vibes,Alt Country,country,moody,0.55,98,0.62,0.60,0.80
+79,Psychedelic Journey,Psychedelic Rock,psychedelic rock,adventurous,0.70,130,0.60,0.65,0.35
+80,Dubstep Festival,Bass Nation,dubstep,intense,0.89,145,0.40,0.75,0.05
+81,Smooth Soul,Soul Legends,soul,relaxed,0.48,98,0.76,0.65,0.75
+82,Indie Dance,Indie Electronic,indie pop,energetic,0.76,125,0.77,0.75,0.28
+83,Hip-Hop Classic,Classic Hip-Hop,hip-hop,motivated,0.70,115,0.72,0.74,0.35
+84,Blues Nights,Blue Moon,blues,introspective,0.42,90,0.50,0.55,0.90
+85,Afro-Latin Fusion,Latin Fusion,afrobeats,happy,0.82,108,0.79,0.81,0.40
+86,Electronic Ambient,Ambient Synth,electronic,peaceful,0.35,75,0.68,0.45,0.88
+87,Punk Energy,Punk Force,punk,intense,0.91,150,0.52,0.73,0.10
+88,Lofi Hip-Hop Study,Study Beats,lofi,focused,0.40,85,0.60,0.62,0.75
+89,Indie Folk Acoustic,Folk Artist,indie folk,peaceful,0.38,82,0.65,0.45,0.94
+90,Techno Underground,Underground Sound,techno,intense,0.85,130,0.62,0.78,0.08
+91,Pop Perfection,Pop Icons,pop,happy,0.80,120,0.85,0.81,0.20
+92,Jazz Fusion Modern,Jazz Modern,jazz,energetic,0.62,110,0.70,0.62,0.72
+93,Rock Anthem,Rock Stars,rock,motivated,0.82,130,0.75,0.72,0.15
+94,Downtempo Evening,Evening Vibes,downtempo,relaxed,0.38,75,0.65,0.58,0.85
+95,Symphonic Rock,Rock Symphony,progressive rock,adventurous,0.72,135,0.70,0.65,0.40
+96,Electronic Future,Future Beats,electronic,energetic,0.84,138,0.76,0.82,0.10
+97,Ambient Meditation,Mindfulness,ambient,peaceful,0.25,65,0.68,0.32,0.95
+98,Reggae Vibes,Reggae Masters,reggae,happy,0.68,105,0.81,0.75,0.48
+99,Soul Deep Cuts,Soul Deep,soul,romantic,0.50,100,0.77,0.68,0.70
+100,Indie Pop Joy,Indie Pop Collective,indie pop,happy,0.74,118,0.81,0.79,0.32
