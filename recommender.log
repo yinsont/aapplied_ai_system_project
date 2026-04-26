@@ -1,0 +1,121 @@
+2026-04-26 15:31:29 | INFO     | Loading songs from /Users/yinsontso/CodePath_AI_Spring_26/aapplied_ai_system_project/data/songs.csv...
+2026-04-26 15:31:29 | INFO     | Loaded 100 songs successfully
+2026-04-26 15:31:29 | INFO     | Loading songs from /Users/yinsontso/CodePath_AI_Spring_26/aapplied_ai_system_project/data/songs.csv...
+2026-04-26 15:31:29 | INFO     | Loaded 100 songs successfully
+2026-04-26 15:31:29 | INFO     | Recommender initialized with 100 songs
+2026-04-26 15:31:29 | INFO     | Pipeline started for: 'I just had a terrible breakup and I can't stop crying...'
+2026-04-26 15:31:29 | INFO     | Keyword analysis on: 'I just had a terrible breakup and I can't stop crying...'
+2026-04-26 15:31:29 | INFO     | Mood detected: melancholic (confidence=0.55, keywords=['cry'])
+2026-04-26 15:31:29 | INFO     | Pipeline complete: mood=melancholic, confidence=0.55, top_song='Mountain Echo'
+2026-04-26 15:31:29 | INFO     | Pipeline started for: 'Heading to the gym, need something to get me pumped up!...'
+2026-04-26 15:31:29 | INFO     | Keyword analysis on: 'Heading to the gym, need something to get me pumped up!...'
+2026-04-26 15:31:29 | INFO     | Mood detected: intense (confidence=0.70, keywords=['gym', 'pump'])
+2026-04-26 15:31:29 | INFO     | Pipeline complete: mood=intense, confidence=0.7, top_song='Bass Drop Thunder'
+2026-04-26 15:31:29 | INFO     | Pipeline started for: 'It's a rainy Sunday morning, I'm making coffee and reading a book...'
+2026-04-26 15:31:29 | INFO     | Keyword analysis on: 'It's a rainy Sunday morning, I'm making coffee and reading a book...'
+2026-04-26 15:31:29 | INFO     | Mood detected: relaxed (confidence=0.70, keywords=['coffee', 'morning'])
+2026-04-26 15:31:29 | INFO     | Pipeline complete: mood=relaxed, confidence=0.7, top_song='Coffee Shop Stories'
+2026-04-26 15:31:29 | INFO     | Pipeline started for: 'I'm pulling an all-nighter coding this project, need to stay focused...'
+2026-04-26 15:31:29 | INFO     | Keyword analysis on: 'I'm pulling an all-nighter coding this project, need to stay focused...'
+2026-04-26 15:31:29 | INFO     | Mood detected: focused (confidence=0.70, keywords=['focus', 'coding'])
+2026-04-26 15:31:29 | INFO     | Pipeline complete: mood=focused, confidence=0.7, top_song='Lofi Hip-Hop Study'
+2026-04-26 15:31:29 | INFO     | Pipeline started for: 'Just got a promotion! Feeling on top of the world!...'
+2026-04-26 15:31:29 | INFO     | Keyword analysis on: 'Just got a promotion! Feeling on top of the world!...'
+2026-04-26 15:31:29 | INFO     | No keyword matches found — using default profile
+2026-04-26 15:31:29 | INFO     | Pipeline complete: mood=chill, confidence=0.2, top_song='Midnight Coding'
+2026-04-26 15:31:29 | INFO     | Recommender initialized with 100 songs
+2026-04-26 15:31:29 | WARNING  | Guardrail: rejected potentially unsafe input
+2026-04-26 15:31:29 | INFO     | Pipeline started for: 'I feel happy and want to dance!...'
+2026-04-26 15:31:29 | INFO     | Keyword analysis on: 'I feel happy and want to dance!...'
+2026-04-26 15:31:29 | INFO     | Mood detected: energetic (confidence=0.55, keywords=['dance'])
+2026-04-26 15:31:29 | INFO     | Pipeline complete: mood=energetic, confidence=0.55, top_song='Electronic Future'
+2026-04-26 15:31:43 | INFO     | Loading songs from /Users/yinsontso/CodePath_AI_Spring_26/aapplied_ai_system_project/data/songs.csv...
+2026-04-26 15:31:43 | INFO     | Loaded 100 songs successfully
+2026-04-26 15:31:43 | INFO     | Recommender initialized with 100 songs
+2026-04-26 15:31:43 | INFO     | Pipeline started for: 'I just had a terrible breakup and I can't stop crying...'
+2026-04-26 15:31:43 | INFO     | Keyword analysis on: 'I just had a terrible breakup and I can't stop crying...'
+2026-04-26 15:31:43 | INFO     | Mood detected: melancholic (confidence=0.55, keywords=['cry'])
+2026-04-26 15:31:43 | INFO     | Pipeline complete: mood=melancholic, confidence=0.55, top_song='Mountain Echo'
+2026-04-26 15:31:43 | INFO     | Pipeline started for: 'Heading to the gym, need something to get me pumped up!...'
+2026-04-26 15:31:43 | INFO     | Keyword analysis on: 'Heading to the gym, need something to get me pumped up!...'
+2026-04-26 15:31:43 | INFO     | Mood detected: intense (confidence=0.70, keywords=['gym', 'pump'])
+2026-04-26 15:31:43 | INFO     | Pipeline complete: mood=intense, confidence=0.7, top_song='Bass Drop Thunder'
+2026-04-26 15:31:43 | INFO     | Pipeline started for: 'It's a rainy Sunday morning, making coffee and reading...'
+2026-04-26 15:31:43 | INFO     | Keyword analysis on: 'It's a rainy Sunday morning, making coffee and reading...'
+2026-04-26 15:31:43 | INFO     | Mood detected: relaxed (confidence=0.70, keywords=['coffee', 'morning'])
+2026-04-26 15:31:43 | INFO     | Pipeline complete: mood=relaxed, confidence=0.7, top_song='Coffee Shop Stories'
+2026-04-26 15:31:43 | INFO     | Pipeline started for: 'I need to focus and study for my final exam tonight...'
+2026-04-26 15:31:43 | INFO     | Keyword analysis on: 'I need to focus and study for my final exam tonight...'
+2026-04-26 15:31:43 | INFO     | Mood detected: focused (confidence=0.70, keywords=['focus', 'study'])
+2026-04-26 15:31:43 | INFO     | Pipeline complete: mood=focused, confidence=0.7, top_song='Lofi Hip-Hop Study'
+2026-04-26 15:31:43 | INFO     | Pipeline started for: 'Just got promoted! Feeling amazing and happy!...'
+2026-04-26 15:31:43 | INFO     | Keyword analysis on: 'Just got promoted! Feeling amazing and happy!...'
+2026-04-26 15:31:43 | INFO     | Mood detected: happy (confidence=0.70, keywords=['happy', 'amazing'])
+2026-04-26 15:31:43 | INFO     | Pipeline complete: mood=happy, confidence=0.7, top_song='Pop Perfection'
+2026-04-26 15:31:43 | INFO     | Pipeline started for: 'I'm so angry and frustrated with everything right now...'
+2026-04-26 15:31:43 | INFO     | Keyword analysis on: 'I'm so angry and frustrated with everything right now...'
+2026-04-26 15:31:43 | INFO     | Mood detected: aggressive (confidence=0.70, keywords=['angry', 'frustrated'])
+2026-04-26 15:31:43 | INFO     | Pipeline complete: mood=aggressive, confidence=0.7, top_song='Thunder Road'
+2026-04-26 15:31:43 | INFO     | Pipeline started for: 'Let's go to a party and dance all night!...'
+2026-04-26 15:31:43 | INFO     | Keyword analysis on: 'Let's go to a party and dance all night!...'
+2026-04-26 15:31:43 | INFO     | Mood detected: energetic (confidence=0.70, keywords=['party', 'dance'])
+2026-04-26 15:31:43 | INFO     | Pipeline complete: mood=energetic, confidence=0.7, top_song='Electronic Future'
+2026-04-26 15:31:43 | INFO     | Pipeline started for: 'The cat sat on the mat...'
+2026-04-26 15:31:43 | INFO     | Keyword analysis on: 'The cat sat on the mat...'
+2026-04-26 15:31:43 | INFO     | No keyword matches found — using default profile
+2026-04-26 15:31:43 | INFO     | Pipeline complete: mood=chill, confidence=0.2, top_song='Midnight Coding'
+2026-04-26 15:31:43 | WARNING  | Guardrail: rejected potentially unsafe input
+2026-04-26 15:32:06 | INFO     | Recommender initialized with 5 songs
+2026-04-26 15:32:06 | DEBUG    | recommend(k=2): top song='Test Pop Track' score=5.58
+2026-04-26 15:32:06 | INFO     | Recommender initialized with 5 songs
+2026-04-26 15:32:06 | DEBUG    | recommend(k=999): top song='Test Pop Track' score=4.90
+2026-04-26 15:32:06 | INFO     | Recommender initialized with 5 songs
+2026-04-26 15:32:06 | DEBUG    | recommend(k=1): top song='Test Pop Track' score=4.90
+2026-04-26 15:32:06 | DEBUG    | recommend(k=3): top song='Test Pop Track' score=4.90
+2026-04-26 15:32:06 | INFO     | Recommender initialized with 5 songs
+2026-04-26 15:32:06 | INFO     | Recommender initialized with 5 songs
+2026-04-26 15:32:06 | INFO     | Recommender initialized with 5 songs
+2026-04-26 15:32:06 | INFO     | Recommender initialized with 5 songs
+2026-04-26 15:32:06 | INFO     | Recommender initialized with 5 songs
+2026-04-26 15:32:06 | INFO     | Recommender initialized with 5 songs
+2026-04-26 15:32:06 | INFO     | Recommender initialized with 5 songs
+2026-04-26 15:32:06 | INFO     | Recommender initialized with 5 songs
+2026-04-26 15:32:06 | INFO     | Keyword analysis on: 'I feel so sad and lonely tonight...'
+2026-04-26 15:32:06 | INFO     | Mood detected: melancholic (confidence=0.70, keywords=['sad', 'lonely'])
+2026-04-26 15:32:06 | INFO     | Keyword analysis on: 'Let's go to a party and dance all night!...'
+2026-04-26 15:32:06 | INFO     | Mood detected: energetic (confidence=0.70, keywords=['party', 'dance'])
+2026-04-26 15:32:06 | INFO     | Keyword analysis on: 'I need to focus and study for my exam...'
+2026-04-26 15:32:06 | INFO     | Mood detected: focused (confidence=0.70, keywords=['focus', 'study'])
+2026-04-26 15:32:06 | INFO     | Keyword analysis on: 'I'm so angry and frustrated right now...'
+2026-04-26 15:32:06 | INFO     | Mood detected: aggressive (confidence=0.70, keywords=['angry', 'frustrated'])
+2026-04-26 15:32:06 | INFO     | Keyword analysis on: 'The cat sat on the mat...'
+2026-04-26 15:32:06 | INFO     | No keyword matches found — using default profile
+2026-04-26 15:32:06 | INFO     | Keyword analysis on: 'happy day...'
+2026-04-26 15:32:06 | INFO     | Mood detected: happy (confidence=0.55, keywords=['happy'])
+2026-04-26 15:32:06 | WARNING  | Guardrail: rejected potentially unsafe input
+2026-04-26 15:32:06 | INFO     | AI analysis successful: mood=happy, confidence=0.9
+2026-04-26 15:32:06 | INFO     | AI analysis successful: mood=chill, confidence=0.7
+2026-04-26 15:32:06 | WARNING  | AI response parsing failed (Expecting value: line 1 column 1 (char 0)), falling back to keywords
+2026-04-26 15:32:06 | INFO     | Keyword analysis on: 'I'm really angry!!!...'
+2026-04-26 15:32:06 | INFO     | Mood detected: aggressive (confidence=0.55, keywords=['angry'])
+2026-04-26 15:32:06 | WARNING  | AI returned unknown mood 'UNKNOWNMOOD', falling back
+2026-04-26 15:32:06 | WARNING  | AI response parsing failed (Unknown mood: UNKNOWNMOOD), falling back to keywords
+2026-04-26 15:32:06 | INFO     | Keyword analysis on: 'test text...'
+2026-04-26 15:32:06 | INFO     | No keyword matches found — using default profile
+2026-04-26 15:32:06 | INFO     | Recommender initialized with 5 songs
+2026-04-26 15:32:06 | INFO     | Pipeline started for: 'I want to dance at a party!...'
+2026-04-26 15:32:06 | INFO     | Keyword analysis on: 'I want to dance at a party!...'
+2026-04-26 15:32:06 | INFO     | Mood detected: energetic (confidence=0.70, keywords=['party', 'dance'])
+2026-04-26 15:32:06 | INFO     | Pipeline complete: mood=energetic, confidence=0.7, top_song='Test Pop Track'
+2026-04-26 15:32:06 | INFO     | Recommender initialized with 5 songs
+2026-04-26 15:32:06 | INFO     | Pipeline started for: 'I'm feeling lonely and sad...'
+2026-04-26 15:32:06 | INFO     | Keyword analysis on: 'I'm feeling lonely and sad...'
+2026-04-26 15:32:06 | INFO     | Mood detected: melancholic (confidence=0.70, keywords=['sad', 'lonely'])
+2026-04-26 15:32:06 | INFO     | Pipeline complete: mood=melancholic, confidence=0.7, top_song='Chill Lofi Loop'
+2026-04-26 15:32:06 | INFO     | Recommender initialized with 5 songs
+2026-04-26 15:32:06 | INFO     | Pipeline started for: 'heading to the gym for a workout...'
+2026-04-26 15:32:06 | INFO     | Keyword analysis on: 'heading to the gym for a workout...'
+2026-04-26 15:32:06 | INFO     | Mood detected: intense (confidence=0.70, keywords=['workout', 'gym'])
+2026-04-26 15:32:06 | INFO     | Pipeline complete: mood=intense, confidence=0.7, top_song='Test Pop Track'
+2026-04-26 15:32:06 | INFO     | Recommender initialized with 5 songs
+2026-04-26 15:32:06 | ERROR    | Input validation failed: Input text is empty
