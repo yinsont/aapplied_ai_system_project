@@ -119,3 +119,37 @@
 2026-04-26 15:32:06 | INFO     | Pipeline complete: mood=intense, confidence=0.7, top_song='Test Pop Track'
 2026-04-26 15:32:06 | INFO     | Recommender initialized with 5 songs
 2026-04-26 15:32:06 | ERROR    | Input validation failed: Input text is empty
+2026-04-26 15:49:10 | INFO     | Loading songs from /Users/yinsontso/CodePath_AI_Spring_26/aapplied_ai_system_project/data/songs.csv...
+2026-04-26 15:49:10 | INFO     | Loaded 100 songs successfully
+2026-04-26 15:49:10 | INFO     | Recommender initialized with 100 songs
+2026-04-26 15:49:10 | INFO     | Loading songs from /Users/yinsontso/CodePath_AI_Spring_26/aapplied_ai_system_project/data/songs.csv...
+2026-04-26 15:49:10 | INFO     | Loaded 100 songs successfully
+2026-04-26 15:49:10 | INFO     | Recommender initialized with 100 songs
+2026-04-26 15:53:57 | INFO     | Pipeline started for: 'haven't had food in few hours, i'm soo hungry...'
+2026-04-26 15:53:57 | INFO     | Keyword analysis on: 'haven't had food in few hours, i'm soo hungry...'
+2026-04-26 15:53:57 | INFO     | No keyword matches found — using default profile
+2026-04-26 15:53:57 | INFO     | Pipeline complete: mood=chill, confidence=0.2, top_song='Midnight Coding'
+2026-04-26 15:54:07 | INFO     | Pipeline started for: 'I just had a terrible breakup...'
+2026-04-26 15:54:07 | INFO     | Keyword analysis on: 'I just had a terrible breakup...'
+2026-04-26 15:54:07 | INFO     | No keyword matches found — using default profile
+2026-04-26 15:54:07 | INFO     | Pipeline complete: mood=chill, confidence=0.2, top_song='Midnight Coding'
+2026-04-26 15:54:10 | INFO     | Pipeline started for: 'Rainy morning with coffee...'
+2026-04-26 15:54:10 | INFO     | Keyword analysis on: 'Rainy morning with coffee...'
+2026-04-26 15:54:10 | INFO     | Mood detected: relaxed (confidence=0.70, keywords=['coffee', 'morning'])
+2026-04-26 15:54:10 | INFO     | Pipeline complete: mood=relaxed, confidence=0.7, top_song='Coffee Shop Stories'
+2026-04-26 15:54:22 | INFO     | Pipeline started for: 'just failed an exam...'
+2026-04-26 15:54:22 | INFO     | Keyword analysis on: 'just failed an exam...'
+2026-04-26 15:54:22 | INFO     | No keyword matches found — using default profile
+2026-04-26 15:54:22 | INFO     | Pipeline complete: mood=chill, confidence=0.2, top_song='Midnight Coding'
+2026-04-26 15:54:42 | INFO     | Pipeline started for: 'Heading to the gym!...'
+2026-04-26 15:54:42 | INFO     | Keyword analysis on: 'Heading to the gym!...'
+2026-04-26 15:54:42 | INFO     | Mood detected: intense (confidence=0.55, keywords=['gym'])
+2026-04-26 15:54:42 | INFO     | Pipeline complete: mood=intense, confidence=0.55, top_song='Bass Drop Thunder'
+2026-04-26 15:54:53 | INFO     | Pipeline started for: 'Road trip through the desert...'
+2026-04-26 15:54:53 | INFO     | Keyword analysis on: 'Road trip through the desert...'
+2026-04-26 15:54:53 | INFO     | Mood detected: adventurous (confidence=0.55, keywords=['road'])
+2026-04-26 15:54:53 | INFO     | Pipeline complete: mood=adventurous, confidence=0.55, top_song='Desert Echo'
+2026-04-27 15:36:33 | INFO     | Pipeline started for: 'hungry...'
+2026-04-27 15:36:33 | INFO     | Keyword analysis on: 'hungry...'
+2026-04-27 15:36:33 | INFO     | No keyword matches found — using default profile
+2026-04-27 15:36:33 | INFO     | Pipeline complete: mood=chill, confidence=0.2, top_song='Midnight Coding'

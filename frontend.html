@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mood Recommender</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,700&display=swap" rel="stylesheet"/>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#07070B;color:#fff;font-family:'Outfit',-apple-system,sans-serif;min-height:100vh}
+  @keyframes su{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  textarea:focus{outline:none}
+  textarea::placeholder{color:rgba(255,255,255,0.16)}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const API = "http://localhost:5000";
+
+const TH = {
+  happy:{i:"☀️",c:"#F59E0B"}, energetic:{i:"⚡",c:"#EF4444"}, intense:{i:"🔥",c:"#DC2626"},
+  chill:{i:"🧊",c:"#06B6D4"}, focused:{i:"🎯",c:"#8B5CF6"}, relaxed:{i:"🌿",c:"#10B981"},
+  melancholic:{i:"🌧️",c:"#6366F1"}, aggressive:{i:"💢",c:"#BE123C"}, romantic:{i:"💜",c:"#EC4899"},
+  peaceful:{i:"🕊️",c:"#5EEAD4"}, introspective:{i:"🌑",c:"#A78BFA"}, dreamy:{i:"☁️",c:"#818CF8"},
+  moody:{i:"🌙",c:"#64748B"}, inspirational:{i:"✨",c:"#FBBF24"}, playful:{i:"🎪",c:"#F97316"},
+  adventurous:{i:"🧭",c:"#059669"}, dark:{i:"🖤",c:"#475569"}, nostalgic:{i:"📻",c:"#D97706"},
+  confident:{i:"👑",c:"#7C3AED"},
+};
+const gt = m => TH[m] || {i:"🎵",c:"#94A3B8"};
+
+let state = { text:"", analysis:null, results:[], loading:false, err:"", connected:null };
+
+function setState(patch) {
+  Object.assign(state, patch);
+  render();
+}
+
+// Check backend connection
+fetch(`${API}/api/songs`).then(r => setState({connected:r.ok})).catch(() => setState({connected:false}));
+
+async function analyze() {
+  const t = state.text.trim();
+  if (!t) return;
+  setState({err:"", loading:true});
+
+  try {
+    const res = await fetch(`${API}/api/analyze`, {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({text:t, k:6}),
+    });
+    const data = await res.json();
+    if (!res.ok) { setState({err:data.error||"Error", loading:false}); return; }
+    setState({analysis:data.analysis, results:data.recommendations, loading:false});
+  } catch(e) {
+    setState({err:"Can't reach Python server. Run: python src/api.py", loading:false});
+  }
+}
+
+function gaugeHTML(value, label, color) {
+  const ang = value*180-90;
+  const nx = 50+28*Math.cos(ang*Math.PI/180);
+  const ny = 52+28*Math.sin(ang*Math.PI/180);
+  return `
+    <div style="text-align:center;width:96px">
+      <svg viewBox="0 0 100 58" style="width:100%;overflow:visible">
+        <path d="M 10 52 A 40 40 0 0 1 90 52" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="7" stroke-linecap="round"/>
+        <path d="M 10 52 A 40 40 0 0 1 90 52" fill="none" stroke="${color}" stroke-width="7" stroke-linecap="round"
+          stroke-dasharray="${value*126} 126" style="transition:stroke-dasharray 0.8s cubic-bezier(0.16,1,0.3,1)"/>
+        <line x1="50" y1="52" x2="${nx}" y2="${ny}" stroke="rgba(255,255,255,0.65)" stroke-width="2" stroke-linecap="round"
+          style="transition:all 0.8s cubic-bezier(0.16,1,0.3,1)"/>
+        <circle cx="50" cy="52" r="3" fill="${color}"/>
+      </svg>
+      <div style="font-size:18px;font-weight:700;color:${color};font-family:'Outfit',sans-serif;margin-top:-2px">${Math.round(value*100)}%</div>
+      <div style="font-size:9px;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:0.14em;font-weight:600;margin-top:2px">${label}</div>
+    </div>`;
+}
+
+function songRowHTML(r, i, color) {
+  const pct = Math.min(r.score/6.25,1);
+  const tags = r.explanation.split(" + ").map(t =>
+    `<span style="font-size:8.5px;padding:2px 6px;border-radius:16px;background:${color}15;color:${color}bb;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;white-space:nowrap">${t}</span>`
+  ).join("");
+
+  return `
+    <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:12px;
+      background:${i===0?`linear-gradient(135deg,${color}0D,transparent)`:"rgba(255,255,255,0.012)"};
+      border:1px solid ${i===0?color+"22":"rgba(255,255,255,0.03)"};animation:su 0.4s ${i*0.06}s both">
+      <div style="width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;
+        background:${i===0?color:"rgba(255,255,255,0.035)"};color:${i===0?"#fff":"rgba(255,255,255,0.28)"};
+        font-size:11px;font-weight:700;font-family:'Outfit',sans-serif;flex-shrink:0">${i+1}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:13.5px;font-weight:600;color:rgba(255,255,255,0.88);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${r.song.title}</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:1px">${r.song.artist} · ${r.song.genre}</div>
+      </div>
+      <div style="display:flex;gap:3px;flex-wrap:wrap;justify-content:flex-end;max-width:180px">${tags}</div>
+      <div style="text-align:right;flex-shrink:0;width:48px">
+        <div style="font-size:15px;font-weight:700;color:${color};font-family:'Outfit',sans-serif">${r.score.toFixed(1)}</div>
+        <div style="width:40px;height:3px;border-radius:2px;background:rgba(255,255,255,0.035);margin-top:3px">
+          <div style="width:${pct*100}%;height:100%;border-radius:2px;background:${color};transition:width 0.5s ease"></div>
+        </div>
+      </div>
+    </div>`;
+}
+
+const sugg = ["I just had a terrible breakup","Heading to the gym!","Rainy morning with coffee","Coding all night, need focus","Just got promoted!","Road trip through the desert"];
+
+function render() {
+  const s = state;
+  const th = s.analysis ? gt(s.analysis.detected_mood) : {i:"🎧",c:"#64748B"};
+  const app = document.getElementById("app");
+
+  let html = "";
+
+  // Ambient glow
+  if (s.analysis) {
+    html += `<div style="position:fixed;top:-35%;left:-15%;width:70vw;height:70vw;border-radius:50%;background:radial-gradient(circle,${th.c}06,transparent 60%);pointer-events:none;transition:all 2s ease"></div>`;
+  }
+
+  html += `<div style="max-width:580px;margin:0 auto;padding:44px 20px 72px;position:relative">`;
+
+  // Header
+  html += `<div style="margin-bottom:32px;animation:su 0.5s both">
+    <div style="font-family:'Fraunces',serif;font-size:30px;font-weight:700;letter-spacing:-0.04em;color:rgba(255,255,255,0.95)">How are you feeling?</div>
+    <p style="font-size:13.5px;color:rgba(255,255,255,0.28);margin-top:6px;line-height:1.55;font-weight:300">Describe your mood and your Python AI will analyze it and build a playlist.</p>
+  </div>`;
+
+  // Connection status
+  if (s.connected === false) {
+    html += `<div style="padding:12px 16px;border-radius:10px;background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.18);color:#FBBF24;font-size:12px;margin-bottom:14px;animation:su 0.3s both;line-height:1.6">
+      ⚠️ Python server not detected. Start it with:<br/>
+      <code style="background:rgba(255,255,255,0.06);padding:2px 6px;border-radius:4px;font-size:11.5px">python src/api.py</code>
+    </div>`;
+  } else if (s.connected === true && !s.analysis) {
+    html += `<div style="padding:8px 14px;border-radius:10px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15);color:#10B981;font-size:11.5px;margin-bottom:14px;animation:su 0.3s both">✅ Connected to Python backend</div>`;
+  }
+
+  // Input
+  html += `<div style="background:rgba(255,255,255,0.02);border-radius:16px;border:1px solid rgba(255,255,255,0.05);margin-bottom:8px;animation:su 0.5s 0.08s both">
+    <textarea id="inp" rows="3" placeholder="I'm feeling..." style="width:100%;background:transparent;border:none;color:rgba(255,255,255,0.88);font-size:15px;padding:16px 18px 6px;resize:none;line-height:1.6;font-family:inherit;font-weight:400">${s.text}</textarea>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 12px 12px">
+      <div style="font-size:11px;color:rgba(255,255,255,0.2)">Powered by your Python recommender</div>
+      <button id="gobtn" style="padding:8px 20px;border-radius:9px;border:none;cursor:pointer;font-size:13px;font-weight:600;font-family:inherit;background:${s.loading?"rgba(255,255,255,0.03)":th.c};color:${s.loading?"rgba(255,255,255,0.25)":"#fff"};transition:all 0.2s;opacity:${!s.text.trim()?0.3:1}">${s.loading?"Analyzing...":"Analyze mood →"}</button>
+    </div>
+  </div>`;
+
+  // Error
+  if (s.err) {
+    html += `<div style="padding:9px 14px;border-radius:9px;background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.18);color:#EF4444;font-size:12.5px;margin-bottom:10px;animation:su 0.3s both">🛡️ ${s.err}</div>`;
+  }
+
+  // Suggestions
+  html += `<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:32px;animation:su 0.5s 0.15s both">`;
+  sugg.forEach((s,i) => {
+    html += `<button class="sg" data-i="${i}" style="padding:4px 11px;border-radius:20px;border:1px solid rgba(255,255,255,0.045);background:rgba(255,255,255,0.015);color:rgba(255,255,255,0.28);cursor:pointer;font-size:10.5px;font-family:inherit;font-weight:500;transition:all 0.2s">${s}</button>`;
+  });
+  html += `</div>`;
+
+  // Loading
+  if (s.loading) {
+    html += `<div style="text-align:center;padding:52px 0;animation:su 0.3s both">
+      <div style="width:44px;height:44px;border-radius:22px;border:3px solid ${th.c}1A;border-top-color:${th.c};animation:sp 0.7s linear infinite;margin:0 auto 14px"></div>
+      <div style="font-size:12.5px;color:rgba(255,255,255,0.22)">Python is analyzing your mood...</div>
+    </div>`;
+  }
+
+  // Results
+  if (s.analysis && !s.loading) {
+    const a = s.analysis;
+    html += `<div style="animation:su 0.4s both">`;
+
+    // Mood card
+    html += `<div style="border-radius:18px;padding:24px 24px 20px;margin-bottom:24px;background:linear-gradient(155deg,${th.c}0A,transparent);border:1px solid ${th.c}15">
+      <div style="display:flex;align-items:flex-start;gap:14px;margin-bottom:18px">
+        <div style="font-size:36px;line-height:1">${th.i}</div>
+        <div style="flex:1">
+          <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:${th.c};text-transform:capitalize;letter-spacing:-0.02em">${a.detected_mood}</div>
+          <div style="font-size:11.5px;color:rgba(255,255,255,0.28);margin-top:3px">${a.suggested_genre} · ${a.likes_acoustic?"acoustic":"electric"} · ${a.source} analysis</div>
+        </div>
+        <div style="padding:3px 9px;border-radius:7px;background:${th.c}12;font-size:10.5px;font-weight:600;color:${th.c}">${Math.round(a.confidence*100)}%</div>
+      </div>
+      <div style="display:flex;justify-content:center;gap:28px;margin-bottom:14px">
+        ${gaugeHTML(a.energy_level, "Energy", th.c)}
+        ${gaugeHTML(a.valence_level, "Positivity", th.c)}
+      </div>
+      <div style="font-size:11.5px;color:rgba(255,255,255,0.22);font-style:italic;text-align:center;line-height:1.5">${a.reasoning}</div>
+    </div>`;
+
+    // Playlist
+    html += `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <div style="font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.18)">Your playlist</div>
+      <div style="font-size:10px;color:rgba(255,255,255,0.12)">${s.results.length} tracks</div>
+    </div>`;
+    html += `<div style="display:flex;flex-direction:column;gap:5px">`;
+    s.results.forEach((r, i) => { html += songRowHTML(r, i, th.c); });
+    html += `</div></div>`;
+  }
+
+  html += `</div>`;
+  app.innerHTML = html;
+
+  // Attach events
+  const inp = document.getElementById("inp");
+  if (inp) {
+    inp.addEventListener("input", e => { state.text = e.target.value; });
+    inp.addEventListener("keydown", e => { if (e.key==="Enter" && !e.shiftKey) { e.preventDefault(); analyze(); } });
+  }
+  const btn = document.getElementById("gobtn");
+  if (btn) btn.addEventListener("click", analyze);
+
+  document.querySelectorAll(".sg").forEach(b => {
+    b.addEventListener("click", () => { setState({text: sugg[parseInt(b.dataset.i)]}); });
+  });
+}
+
+render();
+</script>
+</body>
+</html>
