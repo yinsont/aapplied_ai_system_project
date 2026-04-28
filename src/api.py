@@ -64,34 +64,109 @@ def get_songs():
 def analyze():
     """
     Accept user text, run mood analysis + recommendation through Python,
-    and return the full result.
+    and return the full result including a processing trail for the debug panel.
 
     Request body: { "text": "I feel sad and lonely", "k": 6 }
-    Response: { "analysis": {...}, "recommendations": [...] }
+    Response: { "analysis": {...}, "recommendations": [...], "processing": [...] }
     """
+    import time
     data = request.get_json()
 
     if not data or "text" not in data:
         return jsonify({"error": "Missing 'text' field in request body"}), 400
 
     text = data["text"]
-    k = data.get("k", 6)
+    k = data.get("k", 10)
+    processing = []  # step-by-step trail
+    t0 = time.time()
 
-    # Validate input (guardrails)
+    # Step 1: Input validation (guardrails)
     is_valid, error_msg = validate_input_text(text)
+    processing.append({
+        "step": 1,
+        "name": "Input Validation",
+        "icon": "🛡️",
+        "status": "pass" if is_valid else "fail",
+        "detail": f"Length: {len(text)} chars" if is_valid else f"Rejected: {error_msg}",
+        "checks": [
+            {"label": "Not empty", "pass": bool(text.strip())},
+            {"label": f"Length ≥ 2 chars", "pass": len(text.strip()) >= 2 if text.strip() else False},
+            {"label": f"Length ≤ 2000 chars", "pass": len(text.strip()) <= 2000 if text.strip() else True},
+            {"label": "No script injection", "pass": not bool(__import__('re').search(r'<script|<iframe|javascript:', text, __import__('re').IGNORECASE))},
+        ],
+    })
+
     if not is_valid:
         logger.warning(f"API guardrail rejected input: {error_msg}")
-        return jsonify({"error": error_msg, "guardrail": True}), 400
+        return jsonify({"error": error_msg, "guardrail": True, "processing": processing}), 400
 
-    # Sanitize and analyze
+    # Step 2: Sanitization
     clean_text = sanitize_text(text)
+    processing.append({
+        "step": 2,
+        "name": "Text Sanitization",
+        "icon": "🧹",
+        "status": "pass",
+        "detail": f"Cleaned: \"{clean_text[:80]}{'...' if len(clean_text) > 80 else ''}\"",
+    })
 
+    # Step 3: Mood analysis
     try:
         analysis, recs = recommender.recommend_from_text(clean_text, k=k)
     except ValueError as e:
-        return jsonify({"error": str(e), "guardrail": True}), 400
+        return jsonify({"error": str(e), "guardrail": True, "processing": processing}), 400
+
+    processing.append({
+        "step": 3,
+        "name": "Keyword Mood Analysis",
+        "icon": "🧠",
+        "status": "pass",
+        "detail": f"Matched mood: {analysis.detected_mood} ({analysis.confidence:.0%} confidence)",
+        "keywords_matched": analysis.reasoning,
+        "parameters": {
+            "detected_mood": analysis.detected_mood,
+            "energy_level": analysis.energy_level,
+            "valence_level": analysis.valence_level,
+            "suggested_genre": analysis.suggested_genre,
+            "likes_acoustic": analysis.likes_acoustic,
+        },
+    })
+
+    # Step 4: Profile conversion
+    processing.append({
+        "step": 4,
+        "name": "UserProfile Conversion",
+        "icon": "👤",
+        "status": "pass",
+        "detail": f"Genre={analysis.suggested_genre}, Mood={analysis.detected_mood}, Energy={analysis.energy_level}, Acoustic={analysis.likes_acoustic}",
+    })
+
+    # Step 5: Scoring
+    top_score = recs[0][1] if recs else 0
+    low_score = recs[-1][1] if recs else 0
+    processing.append({
+        "step": 5,
+        "name": f"Scoring Engine ({len(recommender.songs)} songs)",
+        "icon": "📊",
+        "status": "pass",
+        "detail": f"Scored all songs, top={top_score:.2f}, lowest returned={low_score:.2f}",
+        "formula": "genre(+3.0) + mood(+2.0) + energy_sim(×2.0) + valence_sim(×1.5) + dance(×1.0) + acoustic(+0.5) = 10.0 max",
+    })
+
+    # Step 6: Results
+    elapsed = round((time.time() - t0) * 1000, 1)
+    processing.append({
+        "step": 6,
+        "name": "Results Returned",
+        "icon": "✅",
+        "status": "pass",
+        "detail": f"{len(recs)} songs returned in {elapsed}ms",
+    })
 
     # Build response
+    low_confidence = analysis.confidence < 0.3
+    is_blended = "Blended moods" in analysis.reasoning
+
     response = {
         "analysis": {
             "detected_mood": analysis.detected_mood,
@@ -102,6 +177,8 @@ def analyze():
             "confidence": analysis.confidence,
             "reasoning": analysis.reasoning,
             "source": analysis.source,
+            "low_confidence": low_confidence,
+            "blended": is_blended,
         },
         "recommendations": [
             {
@@ -116,6 +193,7 @@ def analyze():
             }
             for song, score, explanation in recs
         ],
+        "processing": processing,
     }
 
     return jsonify(response)

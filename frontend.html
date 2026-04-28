@@ -4,216 +4,241 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Mood Recommender</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{background:#07070B;color:#fff;font-family:'Outfit',-apple-system,sans-serif;min-height:100vh}
-  @keyframes su{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-  @keyframes sp{to{transform:rotate(360deg)}}
-  textarea:focus{outline:none}
-  textarea::placeholder{color:rgba(255,255,255,0.16)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#07070B;color:#fff;font-family:'Outfit',-apple-system,sans-serif;min-height:100vh}
+@keyframes su{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes sp{to{transform:rotate(360deg)}}
+textarea:focus{outline:none}
+textarea::placeholder{color:rgba(255,255,255,0.16)}
+.debug-toggle{position:fixed;bottom:20px;right:20px;width:48px;height:48px;border-radius:14px;border:1px solid rgba(255,255,255,0.08);background:rgba(15,15,20,0.9);backdrop-filter:blur(12px);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:20px;z-index:100;transition:all 0.2s}
+.debug-toggle:hover{border-color:rgba(255,255,255,0.2);transform:scale(1.05)}
+.debug-toggle.active{border-color:#8B5CF6;background:rgba(139,92,246,0.12)}
+.debug-panel{position:fixed;bottom:80px;right:20px;width:420px;max-height:70vh;overflow-y:auto;border-radius:16px;border:1px solid rgba(139,92,246,0.2);background:rgba(10,10,15,0.95);backdrop-filter:blur(16px);padding:20px;z-index:99;animation:su 0.3s both;font-size:13px}
+.debug-panel::-webkit-scrollbar{width:4px}
+.debug-panel::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:2px}
+.step{padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);margin-bottom:8px}
+.step-header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.step-num{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;font-family:'JetBrains Mono',monospace}
+.step-pass{background:rgba(16,185,129,0.15);color:#10B981}
+.step-fail{background:rgba(239,68,68,0.15);color:#EF4444}
+.check-row{display:flex;align-items:center;gap:6px;font-size:11.5px;color:rgba(255,255,255,0.4);padding:2px 0 2px 30px}
+.mono{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,0.35)}
 </style>
 </head>
 <body>
 <div id="app"></div>
+<div class="debug-toggle" id="debugToggle" title="Toggle processing view">🔍</div>
+<div class="debug-panel" id="debugPanel" style="display:none"></div>
+
 <script>
-const API = "http://localhost:5000";
+const API="http://localhost:5000";
+const TH={happy:{i:"☀️",c:"#F59E0B"},energetic:{i:"⚡",c:"#EF4444"},intense:{i:"🔥",c:"#DC2626"},chill:{i:"🧊",c:"#06B6D4"},focused:{i:"🎯",c:"#8B5CF6"},relaxed:{i:"🌿",c:"#10B981"},melancholic:{i:"🌧️",c:"#6366F1"},aggressive:{i:"💢",c:"#BE123C"},romantic:{i:"💜",c:"#EC4899"},peaceful:{i:"🕊️",c:"#5EEAD4"},introspective:{i:"🌑",c:"#A78BFA"},dreamy:{i:"☁️",c:"#818CF8"},moody:{i:"🌙",c:"#64748B"},inspirational:{i:"✨",c:"#FBBF24"},playful:{i:"🎪",c:"#F97316"},adventurous:{i:"🧭",c:"#059669"},dark:{i:"🖤",c:"#475569"},nostalgic:{i:"📻",c:"#D97706"},confident:{i:"👑",c:"#7C3AED"},contemplative:{i:"🤔",c:"#94A3B8"},motivated:{i:"🚀",c:"#EF4444"}};
+const gt=m=>TH[m]||{i:"🎵",c:"#94A3B8"};
 
-const TH = {
-  happy:{i:"☀️",c:"#F59E0B"}, energetic:{i:"⚡",c:"#EF4444"}, intense:{i:"🔥",c:"#DC2626"},
-  chill:{i:"🧊",c:"#06B6D4"}, focused:{i:"🎯",c:"#8B5CF6"}, relaxed:{i:"🌿",c:"#10B981"},
-  melancholic:{i:"🌧️",c:"#6366F1"}, aggressive:{i:"💢",c:"#BE123C"}, romantic:{i:"💜",c:"#EC4899"},
-  peaceful:{i:"🕊️",c:"#5EEAD4"}, introspective:{i:"🌑",c:"#A78BFA"}, dreamy:{i:"☁️",c:"#818CF8"},
-  moody:{i:"🌙",c:"#64748B"}, inspirational:{i:"✨",c:"#FBBF24"}, playful:{i:"🎪",c:"#F97316"},
-  adventurous:{i:"🧭",c:"#059669"}, dark:{i:"🖤",c:"#475569"}, nostalgic:{i:"📻",c:"#D97706"},
-  confident:{i:"👑",c:"#7C3AED"},
-};
-const gt = m => TH[m] || {i:"🎵",c:"#94A3B8"};
+let state={text:"",analysis:null,results:[],processing:null,loading:false,err:"",connected:null,debugOpen:false};
+function set(p){Object.assign(state,p);render();renderDebug();}
 
-let state = { text:"", analysis:null, results:[], loading:false, err:"", connected:null };
+// Debug toggle
+document.getElementById("debugToggle").addEventListener("click",()=>{
+  state.debugOpen=!state.debugOpen;
+  document.getElementById("debugToggle").classList.toggle("active",state.debugOpen);
+  document.getElementById("debugPanel").style.display=state.debugOpen?"block":"none";
+  renderDebug();
+});
 
-function setState(patch) {
-  Object.assign(state, patch);
-  render();
+fetch(`${API}/api/songs`).then(r=>set({connected:r.ok})).catch(()=>set({connected:false}));
+
+async function analyze(){
+  const t=state.text.trim();if(!t)return;
+  set({err:"",loading:true,processing:null});
+  try{
+    const res=await fetch(`${API}/api/analyze`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:t,k:10})});
+    const data=await res.json();
+    if(!res.ok){set({err:data.error||"Error",loading:false,processing:data.processing||null});return;}
+    set({analysis:data.analysis,results:data.recommendations,processing:data.processing,loading:false});
+  }catch(e){set({err:"Can't reach Python server. Run: python src/api.py",loading:false});}
 }
 
-// Check backend connection
-fetch(`${API}/api/songs`).then(r => setState({connected:r.ok})).catch(() => setState({connected:false}));
+function renderDebug(){
+  const panel=document.getElementById("debugPanel");
+  if(!state.debugOpen){panel.style.display="none";return;}
+  panel.style.display="block";
 
-async function analyze() {
-  const t = state.text.trim();
-  if (!t) return;
-  setState({err:"", loading:true});
-
-  try {
-    const res = await fetch(`${API}/api/analyze`, {
-      method:"POST", headers:{"Content-Type":"application/json"},
-      body: JSON.stringify({text:t, k:6}),
-    });
-    const data = await res.json();
-    if (!res.ok) { setState({err:data.error||"Error", loading:false}); return; }
-    setState({analysis:data.analysis, results:data.recommendations, loading:false});
-  } catch(e) {
-    setState({err:"Can't reach Python server. Run: python src/api.py", loading:false});
-  }
-}
-
-function gaugeHTML(value, label, color) {
-  const ang = value*180-90;
-  const nx = 50+28*Math.cos(ang*Math.PI/180);
-  const ny = 52+28*Math.sin(ang*Math.PI/180);
-  return `
-    <div style="text-align:center;width:96px">
-      <svg viewBox="0 0 100 58" style="width:100%;overflow:visible">
-        <path d="M 10 52 A 40 40 0 0 1 90 52" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="7" stroke-linecap="round"/>
-        <path d="M 10 52 A 40 40 0 0 1 90 52" fill="none" stroke="${color}" stroke-width="7" stroke-linecap="round"
-          stroke-dasharray="${value*126} 126" style="transition:stroke-dasharray 0.8s cubic-bezier(0.16,1,0.3,1)"/>
-        <line x1="50" y1="52" x2="${nx}" y2="${ny}" stroke="rgba(255,255,255,0.65)" stroke-width="2" stroke-linecap="round"
-          style="transition:all 0.8s cubic-bezier(0.16,1,0.3,1)"/>
-        <circle cx="50" cy="52" r="3" fill="${color}"/>
-      </svg>
-      <div style="font-size:18px;font-weight:700;color:${color};font-family:'Outfit',sans-serif;margin-top:-2px">${Math.round(value*100)}%</div>
-      <div style="font-size:9px;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:0.14em;font-weight:600;margin-top:2px">${label}</div>
+  if(!state.processing&&!state.analysis){
+    panel.innerHTML=`<div style="color:rgba(255,255,255,0.25);text-align:center;padding:20px">
+      <div style="font-size:24px;margin-bottom:8px">🔍</div>
+      <div>Analyze a mood to see the<br/>processing pipeline here</div>
     </div>`;
-}
+    return;
+  }
 
-function songRowHTML(r, i, color) {
-  const pct = Math.min(r.score/6.25,1);
-  const tags = r.explanation.split(" + ").map(t =>
-    `<span style="font-size:8.5px;padding:2px 6px;border-radius:16px;background:${color}15;color:${color}bb;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;white-space:nowrap">${t}</span>`
-  ).join("");
+  let h=`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+    <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(139,92,246,0.7)">Processing Pipeline</div>`;
 
-  return `
-    <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:12px;
-      background:${i===0?`linear-gradient(135deg,${color}0D,transparent)`:"rgba(255,255,255,0.012)"};
-      border:1px solid ${i===0?color+"22":"rgba(255,255,255,0.03)"};animation:su 0.4s ${i*0.06}s both">
-      <div style="width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;
-        background:${i===0?color:"rgba(255,255,255,0.035)"};color:${i===0?"#fff":"rgba(255,255,255,0.28)"};
-        font-size:11px;font-weight:700;font-family:'Outfit',sans-serif;flex-shrink:0">${i+1}</div>
-      <div style="flex:1;min-width:0">
-        <div style="font-size:13.5px;font-weight:600;color:rgba(255,255,255,0.88);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${r.song.title}</div>
-        <div style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:1px">${r.song.artist} · ${r.song.genre}</div>
+  if(state.analysis){
+    const conf=state.analysis.confidence;
+    const confColor=conf>=0.7?"#10B981":conf>=0.4?"#F59E0B":"#EF4444";
+    h+=`<div style="display:flex;align-items:center;gap:6px">
+      <div style="font-size:10px;color:rgba(255,255,255,0.3)">Confidence</div>
+      <div style="width:60px;height:6px;border-radius:3px;background:rgba(255,255,255,0.06)">
+        <div style="width:${conf*100}%;height:100%;border-radius:3px;background:${confColor};transition:width 0.5s"></div>
       </div>
-      <div style="display:flex;gap:3px;flex-wrap:wrap;justify-content:flex-end;max-width:180px">${tags}</div>
-      <div style="text-align:right;flex-shrink:0;width:48px">
-        <div style="font-size:15px;font-weight:700;color:${color};font-family:'Outfit',sans-serif">${r.score.toFixed(1)}</div>
-        <div style="width:40px;height:3px;border-radius:2px;background:rgba(255,255,255,0.035);margin-top:3px">
-          <div style="width:${pct*100}%;height:100%;border-radius:2px;background:${color};transition:width 0.5s ease"></div>
+      <div style="font-size:12px;font-weight:700;color:${confColor};font-family:'JetBrains Mono',monospace">${Math.round(conf*100)}%</div>
+    </div>`;
+  }
+  h+=`</div>`;
+
+  // Steps
+  if(state.processing){
+    state.processing.forEach(step=>{
+      const pass=step.status==="pass";
+      h+=`<div class="step">`;
+      h+=`<div class="step-header">
+        <div class="step-num ${pass?"step-pass":"step-fail"}">${step.step}</div>
+        <span style="font-size:15px">${step.icon}</span>
+        <span style="font-weight:600;color:rgba(255,255,255,0.8);font-size:12.5px">${step.name}</span>
+        <span style="margin-left:auto;font-size:10px;padding:2px 7px;border-radius:4px;background:${pass?"rgba(16,185,129,0.1)":"rgba(239,68,68,0.1)"};color:${pass?"#10B981":"#EF4444"};font-weight:600">${pass?"PASS":"FAIL"}</span>
+      </div>`;
+      h+=`<div class="mono" style="padding-left:30px">${step.detail}</div>`;
+
+      // Guardrail checks (step 1)
+      if(step.checks){
+        step.checks.forEach(c=>{
+          h+=`<div class="check-row">${c.pass?"✅":"❌"} ${c.label}</div>`;
+        });
+      }
+
+      // Keyword matches (step 3)
+      if(step.keywords_matched){
+        h+=`<div class="mono" style="padding-left:30px;margin-top:4px;color:rgba(139,92,246,0.6)">${step.keywords_matched}</div>`;
+      }
+
+      // Parameters (step 3)
+      if(step.parameters){
+        const p=step.parameters;
+        h+=`<div style="display:flex;flex-wrap:wrap;gap:4px;padding-left:30px;margin-top:6px">`;
+        Object.entries(p).forEach(([k,v])=>{
+          const display=typeof v==="number"?v.toFixed(2):String(v);
+          h+=`<span style="font-size:10px;padding:2px 7px;border-radius:12px;background:rgba(139,92,246,0.08);color:rgba(139,92,246,0.7);font-family:'JetBrains Mono',monospace">${k}: ${display}</span>`;
+        });
+        h+=`</div>`;
+      }
+
+      // Formula (step 5)
+      if(step.formula){
+        h+=`<div class="mono" style="padding-left:30px;margin-top:4px;color:rgba(255,255,255,0.2);font-size:10px">${step.formula}</div>`;
+      }
+
+      h+=`</div>`;
+    });
+  }
+
+  // Score breakdown for top song
+  if(state.results&&state.results.length>0){
+    const top=state.results[0];
+    h+=`<div class="step" style="border-color:rgba(139,92,246,0.15)">
+      <div class="step-header">
+        <span style="font-size:15px">🏆</span>
+        <span style="font-weight:600;color:rgba(255,255,255,0.8);font-size:12.5px">Top Pick Breakdown</span>
+      </div>
+      <div style="padding-left:30px">
+        <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-bottom:4px">${top.song.title} — ${top.song.artist}</div>
+        <div class="mono">Score: ${top.score.toFixed(2)} / 10 (${Math.round(top.score/10*100)}%)</div>
+        <div class="mono">Explanation: ${top.explanation}</div>
+        <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">
+          <span style="font-size:10px;padding:2px 7px;border-radius:12px;background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.3);font-family:'JetBrains Mono',monospace">energy: ${top.song.energy}</span>
+          <span style="font-size:10px;padding:2px 7px;border-radius:12px;background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.3);font-family:'JetBrains Mono',monospace">valence: ${top.song.valence}</span>
+          <span style="font-size:10px;padding:2px 7px;border-radius:12px;background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.3);font-family:'JetBrains Mono',monospace">dance: ${top.song.danceability}</span>
+          <span style="font-size:10px;padding:2px 7px;border-radius:12px;background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.3);font-family:'JetBrains Mono',monospace">acoustic: ${top.song.acousticness}</span>
         </div>
       </div>
     </div>`;
+  }
+
+  panel.innerHTML=h;
 }
 
-const sugg = ["I just had a terrible breakup","Heading to the gym!","Rainy morning with coffee","Coding all night, need focus","Just got promoted!","Road trip through the desert"];
+function gaugeHTML(v,label,color){
+  const a=v*180-90,nx=50+28*Math.cos(a*Math.PI/180),ny=52+28*Math.sin(a*Math.PI/180);
+  return`<div style="text-align:center;width:96px"><svg viewBox="0 0 100 58" style="width:100%;overflow:visible"><path d="M 10 52 A 40 40 0 0 1 90 52" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="7" stroke-linecap="round"/><path d="M 10 52 A 40 40 0 0 1 90 52" fill="none" stroke="${color}" stroke-width="7" stroke-linecap="round" stroke-dasharray="${v*126} 126" style="transition:stroke-dasharray 0.8s"/><line x1="50" y1="52" x2="${nx}" y2="${ny}" stroke="rgba(255,255,255,0.65)" stroke-width="2" stroke-linecap="round" style="transition:all 0.8s"/><circle cx="50" cy="52" r="3" fill="${color}"/></svg><div style="font-size:18px;font-weight:700;color:${color};margin-top:-2px">${Math.round(v*100)}%</div><div style="font-size:9px;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:0.14em;font-weight:600;margin-top:2px">${label}</div></div>`;
+}
 
-function render() {
-  const s = state;
-  const th = s.analysis ? gt(s.analysis.detected_mood) : {i:"🎧",c:"#64748B"};
-  const app = document.getElementById("app");
+function songRowHTML(r,i,color){
+  const pct=Math.min(r.score/10,1);
+  const tags=r.explanation.split(" + ").map(t=>`<span style="font-size:8.5px;padding:2px 6px;border-radius:16px;background:${color}15;color:${color}bb;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;white-space:nowrap">${t}</span>`).join("");
+  return`<div style="display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:12px;background:${i===0?`linear-gradient(135deg,${color}0D,transparent)`:"rgba(255,255,255,0.012)"};border:1px solid ${i===0?color+"22":"rgba(255,255,255,0.03)"};animation:su 0.4s ${i*0.06}s both"><div style="width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;background:${i===0?color:"rgba(255,255,255,0.035)"};color:${i===0?"#fff":"rgba(255,255,255,0.28)"};font-size:11px;font-weight:700;flex-shrink:0">${i+1}</div><div style="flex:1;min-width:0"><div style="font-size:13.5px;font-weight:600;color:rgba(255,255,255,0.88);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${r.song.title}</div><div style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:1px">${r.song.artist} · ${r.song.genre}</div></div><div style="display:flex;gap:3px;flex-wrap:wrap;justify-content:flex-end;max-width:180px">${tags}</div><div style="text-align:right;flex-shrink:0;width:48px"><div style="font-size:15px;font-weight:700;color:${color}">${r.score.toFixed(1)}</div><div style="width:40px;height:3px;border-radius:2px;background:rgba(255,255,255,0.035);margin-top:3px"><div style="width:${pct*100}%;height:100%;border-radius:2px;background:${color};transition:width 0.5s ease"></div></div></div></div>`;
+}
 
-  let html = "";
+const sugg=["I just had a terrible breakup","Heading to the gym!","Rainy morning with coffee","Coding all night, need focus","Just got promoted!","Road trip through the desert"];
 
-  // Ambient glow
-  if (s.analysis) {
-    html += `<div style="position:fixed;top:-35%;left:-15%;width:70vw;height:70vw;border-radius:50%;background:radial-gradient(circle,${th.c}06,transparent 60%);pointer-events:none;transition:all 2s ease"></div>`;
-  }
+function render(){
+  const s=state;
+  const th=s.analysis?gt(s.analysis.detected_mood):{i:"🎧",c:"#64748B"};
+  let h="";
 
-  html += `<div style="max-width:580px;margin:0 auto;padding:44px 20px 72px;position:relative">`;
+  if(s.analysis)h+=`<div style="position:fixed;top:-35%;left:-15%;width:70vw;height:70vw;border-radius:50%;background:radial-gradient(circle,${th.c}06,transparent 60%);pointer-events:none;transition:all 2s ease"></div>`;
 
-  // Header
-  html += `<div style="margin-bottom:32px;animation:su 0.5s both">
-    <div style="font-family:'Fraunces',serif;font-size:30px;font-weight:700;letter-spacing:-0.04em;color:rgba(255,255,255,0.95)">How are you feeling?</div>
-    <p style="font-size:13.5px;color:rgba(255,255,255,0.28);margin-top:6px;line-height:1.55;font-weight:300">Describe your mood and your Python AI will analyze it and build a playlist.</p>
-  </div>`;
+  h+=`<div style="max-width:580px;margin:0 auto;padding:44px 20px 72px;position:relative">`;
 
-  // Connection status
-  if (s.connected === false) {
-    html += `<div style="padding:12px 16px;border-radius:10px;background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.18);color:#FBBF24;font-size:12px;margin-bottom:14px;animation:su 0.3s both;line-height:1.6">
-      ⚠️ Python server not detected. Start it with:<br/>
-      <code style="background:rgba(255,255,255,0.06);padding:2px 6px;border-radius:4px;font-size:11.5px">python src/api.py</code>
-    </div>`;
-  } else if (s.connected === true && !s.analysis) {
-    html += `<div style="padding:8px 14px;border-radius:10px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15);color:#10B981;font-size:11.5px;margin-bottom:14px;animation:su 0.3s both">✅ Connected to Python backend</div>`;
-  }
+  h+=`<div style="margin-bottom:32px;animation:su 0.5s both"><div style="font-family:'Fraunces',serif;font-size:30px;font-weight:700;letter-spacing:-0.04em;color:rgba(255,255,255,0.95)">How are you feeling?</div><p style="font-size:13.5px;color:rgba(255,255,255,0.28);margin-top:6px;line-height:1.55;font-weight:300">Describe your mood and your Python AI will analyze it and build a playlist.<br/><span style="color:rgba(139,92,246,0.5)">Click 🔍 to see the processing pipeline.</span></p></div>`;
 
-  // Input
-  html += `<div style="background:rgba(255,255,255,0.02);border-radius:16px;border:1px solid rgba(255,255,255,0.05);margin-bottom:8px;animation:su 0.5s 0.08s both">
-    <textarea id="inp" rows="3" placeholder="I'm feeling..." style="width:100%;background:transparent;border:none;color:rgba(255,255,255,0.88);font-size:15px;padding:16px 18px 6px;resize:none;line-height:1.6;font-family:inherit;font-weight:400">${s.text}</textarea>
-    <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 12px 12px">
-      <div style="font-size:11px;color:rgba(255,255,255,0.2)">Powered by your Python recommender</div>
-      <button id="gobtn" style="padding:8px 20px;border-radius:9px;border:none;cursor:pointer;font-size:13px;font-weight:600;font-family:inherit;background:${s.loading?"rgba(255,255,255,0.03)":th.c};color:${s.loading?"rgba(255,255,255,0.25)":"#fff"};transition:all 0.2s;opacity:${!s.text.trim()?0.3:1}">${s.loading?"Analyzing...":"Analyze mood →"}</button>
-    </div>
-  </div>`;
+  if(s.connected===false)h+=`<div style="padding:12px 16px;border-radius:10px;background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.18);color:#FBBF24;font-size:12px;margin-bottom:14px;line-height:1.6">⚠️ Python server not detected. Start it with:<br/><code style="background:rgba(255,255,255,0.06);padding:2px 6px;border-radius:4px;font-size:11.5px">python src/api.py</code></div>`;
+  else if(s.connected===true&&!s.analysis)h+=`<div style="padding:8px 14px;border-radius:10px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15);color:#10B981;font-size:11.5px;margin-bottom:14px">✅ Connected to Python backend</div>`;
 
-  // Error
-  if (s.err) {
-    html += `<div style="padding:9px 14px;border-radius:9px;background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.18);color:#EF4444;font-size:12.5px;margin-bottom:10px;animation:su 0.3s both">🛡️ ${s.err}</div>`;
-  }
+  h+=`<div style="background:rgba(255,255,255,0.02);border-radius:16px;border:1px solid rgba(255,255,255,0.05);margin-bottom:8px"><textarea id="inp" rows="3" placeholder="I'm feeling..." style="width:100%;background:transparent;border:none;color:rgba(255,255,255,0.88);font-size:15px;padding:16px 18px 6px;resize:none;line-height:1.6;font-family:inherit;font-weight:400">${s.text}</textarea><div style="display:flex;justify-content:space-between;align-items:center;padding:4px 12px 12px"><div style="font-size:11px;color:rgba(255,255,255,0.2)">Powered by your Python recommender</div><button id="gobtn" style="padding:8px 20px;border-radius:9px;border:none;cursor:pointer;font-size:13px;font-weight:600;font-family:inherit;background:${s.loading?"rgba(255,255,255,0.03)":th.c};color:${s.loading?"rgba(255,255,255,0.25)":"#fff"};transition:all 0.2s;opacity:${!s.text.trim()?0.3:1}">${s.loading?"Analyzing...":"Analyze mood →"}</button></div></div>`;
 
-  // Suggestions
-  html += `<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:32px;animation:su 0.5s 0.15s both">`;
-  sugg.forEach((s,i) => {
-    html += `<button class="sg" data-i="${i}" style="padding:4px 11px;border-radius:20px;border:1px solid rgba(255,255,255,0.045);background:rgba(255,255,255,0.015);color:rgba(255,255,255,0.28);cursor:pointer;font-size:10.5px;font-family:inherit;font-weight:500;transition:all 0.2s">${s}</button>`;
-  });
-  html += `</div>`;
+  if(s.err)h+=`<div style="padding:9px 14px;border-radius:9px;background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.18);color:#EF4444;font-size:12.5px;margin-bottom:10px">🛡️ ${s.err}</div>`;
 
-  // Loading
-  if (s.loading) {
-    html += `<div style="text-align:center;padding:52px 0;animation:su 0.3s both">
-      <div style="width:44px;height:44px;border-radius:22px;border:3px solid ${th.c}1A;border-top-color:${th.c};animation:sp 0.7s linear infinite;margin:0 auto 14px"></div>
-      <div style="font-size:12.5px;color:rgba(255,255,255,0.22)">Python is analyzing your mood...</div>
-    </div>`;
-  }
+  h+=`<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:32px">`;
+  sugg.forEach((sg,i)=>{h+=`<button class="sg" data-i="${i}" style="padding:4px 11px;border-radius:20px;border:1px solid rgba(255,255,255,0.045);background:rgba(255,255,255,0.015);color:rgba(255,255,255,0.28);cursor:pointer;font-size:10.5px;font-family:inherit;font-weight:500;transition:all 0.2s">${sg}</button>`;});
+  h+=`</div>`;
 
-  // Results
-  if (s.analysis && !s.loading) {
-    const a = s.analysis;
-    html += `<div style="animation:su 0.4s both">`;
+  if(s.loading)h+=`<div style="text-align:center;padding:52px 0"><div style="width:44px;height:44px;border-radius:22px;border:3px solid ${th.c}1A;border-top-color:${th.c};animation:sp 0.7s linear infinite;margin:0 auto 14px"></div><div style="font-size:12.5px;color:rgba(255,255,255,0.22)">Python is analyzing your mood...</div></div>`;
+
+  if(s.analysis&&!s.loading){
+    const a=s.analysis;const t=gt(a.detected_mood);
+
+    h+=`<div style="animation:su 0.4s both">`;
+
+    // Low confidence warning
+    if(a.low_confidence){
+      h+=`<div style="padding:12px 16px;border-radius:12px;background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.15);margin-bottom:14px;display:flex;gap:10px;align-items:flex-start">
+        <span style="font-size:18px">⚠️</span>
+        <div>
+          <div style="font-size:13px;color:#FBBF24;font-weight:600;margin-bottom:2px">Low confidence (${Math.round(a.confidence*100)}%)</div>
+          <div style="font-size:12px;color:rgba(251,191,36,0.6);line-height:1.5">The system couldn't strongly match your input to a mood. Try using words like: happy, sad, angry, chill, focused, tired, excited, nostalgic, romantic, stressed.</div>
+        </div>
+      </div>`;
+    }
+
+    // Blended mood indicator
+    if(a.blended){
+      h+=`<div style="padding:10px 14px;border-radius:10px;background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.15);margin-bottom:14px;display:flex;gap:8px;align-items:center">
+        <span style="font-size:16px">🎨</span>
+        <div style="font-size:12px;color:rgba(139,92,246,0.7);line-height:1.4">Multiple moods detected — parameters were blended for a mixed profile.</div>
+      </div>`;
+    }
 
     // Mood card
-    html += `<div style="border-radius:18px;padding:24px 24px 20px;margin-bottom:24px;background:linear-gradient(155deg,${th.c}0A,transparent);border:1px solid ${th.c}15">
-      <div style="display:flex;align-items:flex-start;gap:14px;margin-bottom:18px">
-        <div style="font-size:36px;line-height:1">${th.i}</div>
-        <div style="flex:1">
-          <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:${th.c};text-transform:capitalize;letter-spacing:-0.02em">${a.detected_mood}</div>
-          <div style="font-size:11.5px;color:rgba(255,255,255,0.28);margin-top:3px">${a.suggested_genre} · ${a.likes_acoustic?"acoustic":"electric"} · ${a.source} analysis</div>
-        </div>
-        <div style="padding:3px 9px;border-radius:7px;background:${th.c}12;font-size:10.5px;font-weight:600;color:${th.c}">${Math.round(a.confidence*100)}%</div>
-      </div>
-      <div style="display:flex;justify-content:center;gap:28px;margin-bottom:14px">
-        ${gaugeHTML(a.energy_level, "Energy", th.c)}
-        ${gaugeHTML(a.valence_level, "Positivity", th.c)}
-      </div>
-      <div style="font-size:11.5px;color:rgba(255,255,255,0.22);font-style:italic;text-align:center;line-height:1.5">${a.reasoning}</div>
-    </div>`;
+    h+=`<div style="border-radius:18px;padding:24px 24px 20px;margin-bottom:24px;background:linear-gradient(155deg,${t.c}0A,transparent);border:1px solid ${t.c}15"><div style="display:flex;align-items:flex-start;gap:14px;margin-bottom:18px"><div style="font-size:36px;line-height:1">${t.i}</div><div style="flex:1"><div style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:${t.c};text-transform:capitalize">${a.detected_mood}</div><div style="font-size:11.5px;color:rgba(255,255,255,0.28);margin-top:3px">${a.suggested_genre} · ${a.likes_acoustic?"acoustic":"electric"} · ${a.source} analysis</div></div><div style="padding:3px 9px;border-radius:7px;background:${t.c}12;font-size:10.5px;font-weight:600;color:${t.c}">${Math.round(a.confidence*100)}%</div></div><div style="display:flex;justify-content:center;gap:28px;margin-bottom:14px">${gaugeHTML(a.energy_level,"Energy",t.c)}${gaugeHTML(a.valence_level,"Positivity",t.c)}</div><div style="font-size:11.5px;color:rgba(255,255,255,0.22);font-style:italic;text-align:center">${a.reasoning}</div></div>`;
 
     // Playlist
-    html += `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-      <div style="font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.18)">Your playlist</div>
-      <div style="font-size:10px;color:rgba(255,255,255,0.12)">${s.results.length} tracks</div>
-    </div>`;
-    html += `<div style="display:flex;flex-direction:column;gap:5px">`;
-    s.results.forEach((r, i) => { html += songRowHTML(r, i, th.c); });
-    html += `</div></div>`;
+    h+=`<div style="display:flex;justify-content:space-between;margin-bottom:12px"><div style="font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.18)">Your playlist</div><div style="font-size:10px;color:rgba(255,255,255,0.12)">${s.results.length} tracks</div></div><div style="display:flex;flex-direction:column;gap:5px">`;
+    s.results.forEach((r,i)=>{h+=songRowHTML(r,i,t.c);});
+    h+=`</div></div>`;
   }
 
-  html += `</div>`;
-  app.innerHTML = html;
+  h+=`</div>`;
+  document.getElementById("app").innerHTML=h;
 
-  // Attach events
-  const inp = document.getElementById("inp");
-  if (inp) {
-    inp.addEventListener("input", e => { state.text = e.target.value; });
-    inp.addEventListener("keydown", e => { if (e.key==="Enter" && !e.shiftKey) { e.preventDefault(); analyze(); } });
-  }
-  const btn = document.getElementById("gobtn");
-  if (btn) btn.addEventListener("click", analyze);
-
-  document.querySelectorAll(".sg").forEach(b => {
-    b.addEventListener("click", () => { setState({text: sugg[parseInt(b.dataset.i)]}); });
-  });
+  const inp=document.getElementById("inp");
+  if(inp){inp.addEventListener("input",e=>{state.text=e.target.value;});inp.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();analyze();}});}
+  const btn=document.getElementById("gobtn");
+  if(btn)btn.addEventListener("click",analyze);
+  document.querySelectorAll(".sg").forEach(b=>b.addEventListener("click",()=>{set({text:sugg[parseInt(b.dataset.i)]});}));
 }
-
 render();
 </script>
 </body>

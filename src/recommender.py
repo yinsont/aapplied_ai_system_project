@@ -3,8 +3,7 @@ recommender.py — AI-Powered Music Mood Recommender
 
 Core module containing:
 - Data classes (Song, UserProfile, MoodAnalysis)
-- Keyword-based mood detection (offline fallback)
-- AI-powered mood detection (Anthropic API integration)
+- Keyword-based mood detection (offline)
 - Recommendation engine with scoring, ranking, and explanations
 - Input validation, guardrails, and structured logging
 """
@@ -70,16 +69,17 @@ class UserProfile:
     favorite_genre: str
     favorite_mood: str
     target_energy: float
+    target_valence: float
     likes_acoustic: bool
 
     def __post_init__(self):
-        """Clamp energy to valid range and log guardrail activations."""
-        if not (0.0 <= self.target_energy <= 1.0):
-            clamped = max(0.0, min(1.0, self.target_energy))
-            logger.warning(
-                f"Guardrail: target_energy={self.target_energy} clamped to {clamped}"
-            )
-            self.target_energy = clamped
+        """Clamp energy and valence to valid range and log guardrail activations."""
+        for attr in ("target_energy", "target_valence"):
+            val = getattr(self, attr)
+            if not (0.0 <= val <= 1.0):
+                clamped = max(0.0, min(1.0, val))
+                logger.warning(f"Guardrail: {attr}={val} clamped to {clamped}")
+                setattr(self, attr, clamped)
 
 
 @dataclass
@@ -113,6 +113,7 @@ class MoodAnalysis:
             favorite_genre=self.suggested_genre,
             favorite_mood=self.detected_mood,
             target_energy=self.energy_level,
+            target_valence=self.valence_level,
             likes_acoustic=self.likes_acoustic,
         )
 
@@ -122,6 +123,7 @@ class MoodAnalysis:
             "favorite_genre": self.suggested_genre,
             "favorite_mood": self.detected_mood,
             "target_energy": self.energy_level,
+            "target_valence": self.valence_level,
             "likes_acoustic": self.likes_acoustic,
         }
 
@@ -204,38 +206,113 @@ _KEYWORD_RULES: List[Tuple[List[str], str, float, float, str, bool]] = [
 def analyze_mood_keywords(text: str) -> MoodAnalysis:
     """
     Analyze mood from text using keyword matching.
-    Works offline — no API needed. Used as a fallback when AI is unavailable.
+    Works offline — no API needed.
+
+    Supports multi-mood blending: if the text matches multiple keyword rules,
+    their parameters are weighted-averaged based on hit count, producing a
+    blended profile. For example, "I'm sad but also a little angry" blends
+    melancholic (low energy) with aggressive (high energy) into a mid-range result.
+
+    If no keywords match at all, returns a low-confidence neutral default
+    with a reasoning message suggesting the user try different phrasing.
     """
     logger.info(f"Keyword analysis on: '{text[:80]}...'")
     lower = text.lower()
-    best_score = 0
-    best_match = None
 
+    # Collect ALL matching rules with their hit counts
+    matches = []
     for keywords, mood, energy, valence, genre, acoustic in _KEYWORD_RULES:
         hits = sum(1 for kw in keywords if kw in lower)
-        if hits > best_score:
-            best_score = hits
-            best_match = (mood, energy, valence, genre, acoustic, keywords)
+        if hits > 0:
+            matched_words = [kw for kw in keywords if kw in lower]
+            matches.append({
+                "mood": mood, "energy": energy, "valence": valence,
+                "genre": genre, "acoustic": acoustic,
+                "hits": hits, "matched": matched_words,
+            })
 
-    if best_match:
-        mood, energy, valence, genre, acoustic, matched_kws = best_match
-        matched = [kw for kw in matched_kws if kw in lower]
-        confidence = min(0.4 + (best_score * 0.15), 0.85)
-        reasoning = f"Keyword matches: {', '.join(matched)}"
-        logger.info(f"Mood detected: {mood} (confidence={confidence:.2f}, keywords={matched})")
-    else:
-        mood, energy, valence, genre, acoustic = "chill", 0.50, 0.55, "lofi", False
-        confidence = 0.2
-        reasoning = "No strong keyword signals detected — defaulting to neutral/chill"
+    if not matches:
+        # No keywords matched at all
         logger.info("No keyword matches found — using default profile")
+        return MoodAnalysis(
+            text=text,
+            detected_mood="chill",
+            energy_level=0.50,
+            valence_level=0.55,
+            suggested_genre="lofi",
+            likes_acoustic=False,
+            confidence=0.15,
+            reasoning="No recognized mood keywords found — try describing your feelings "
+                      "with words like happy, sad, angry, chill, focused, tired, excited, etc.",
+            source="keyword",
+        )
+
+    if len(matches) == 1:
+        # Single mood match — straightforward
+        m = matches[0]
+        confidence = min(0.4 + (m["hits"] * 0.15), 0.85)
+        logger.info(f"Single mood detected: {m['mood']} (confidence={confidence:.2f}, keywords={m['matched']})")
+        return MoodAnalysis(
+            text=text,
+            detected_mood=m["mood"],
+            energy_level=round(m["energy"], 2),
+            valence_level=round(m["valence"], 2),
+            suggested_genre=m["genre"],
+            likes_acoustic=m["acoustic"],
+            confidence=round(confidence, 2),
+            reasoning=f"Keyword matches: {', '.join(m['matched'])}",
+            source="keyword",
+        )
+
+    # Multiple mood matches — blend parameters weighted by hit count
+    total_hits = sum(m["hits"] for m in matches)
+    blended_energy = sum(m["energy"] * m["hits"] for m in matches) / total_hits
+    blended_valence = sum(m["valence"] * m["hits"] for m in matches) / total_hits
+
+    # Pick the dominant mood (most keyword hits) for the label
+    matches.sort(key=lambda m: m["hits"], reverse=True)
+    primary = matches[0]
+    secondary = matches[1] if len(matches) > 1 else None
+
+    # Acoustic: true if any matched rule says acoustic
+    blended_acoustic = any(m["acoustic"] for m in matches)
+
+    # Genre: use the primary match's genre
+    blended_genre = primary["genre"]
+
+    # Confidence: higher when multiple rules agree, slight penalty for conflicting moods
+    base_confidence = min(0.4 + (total_hits * 0.12), 0.90)
+    # If moods are very different (e.g. sad + angry), slight confidence reduction
+    if primary["mood"] != secondary["mood"]:
+        energy_spread = abs(primary["energy"] - secondary["energy"])
+        base_confidence -= energy_spread * 0.1
+    confidence = max(0.25, min(0.90, base_confidence))
+
+    # Build reasoning
+    all_matched = []
+    mood_labels = []
+    for m in matches:
+        all_matched.extend(m["matched"])
+        if m["mood"] not in mood_labels:
+            mood_labels.append(m["mood"])
+
+    if len(mood_labels) > 1:
+        reasoning = f"Blended moods: {' + '.join(mood_labels)} (keywords: {', '.join(all_matched)})"
+    else:
+        reasoning = f"Keyword matches: {', '.join(all_matched)}"
+
+    logger.info(
+        f"Multi-mood blend: {mood_labels}, energy={blended_energy:.2f}, "
+        f"valence={blended_valence:.2f}, confidence={confidence:.2f}"
+    )
 
     return MoodAnalysis(
         text=text,
-        detected_mood=mood,
-        energy_level=round(energy, 2),
-        valence_level=round(valence, 2),
-        suggested_genre=genre,
-        likes_acoustic=acoustic,
+        detected_mood=primary["mood"],
+        energy_level=round(blended_energy, 2),
+        valence_level=round(blended_valence, 2),
+        suggested_genre=blended_genre,
+        likes_acoustic=blended_acoustic,
         confidence=round(confidence, 2),
         reasoning=reasoning,
         source="keyword",
@@ -346,28 +423,34 @@ class Recommender:
         logger.info(f"Recommender initialized with {len(songs)} songs")
 
     def score_song(self, user: UserProfile, song: Song) -> float:
-        """Calculate a recommendation score for a song given a user profile."""
+        """Calculate a recommendation score for a song given a user profile (0-10 scale)."""
         score = 0.0
 
+        # Genre match: +3.0
         if song.genre.lower() == user.favorite_genre.lower():
-            score += 2.0
+            score += 3.0
+        # Mood match: +2.0
         if song.mood.lower() == user.favorite_mood.lower():
-            score += 1.0
+            score += 2.0
 
+        # Energy similarity: ×2.0 (max 2.0)
         energy_sim = 1.0 - abs(user.target_energy - song.energy)
-        score += energy_sim * 1.5
+        score += energy_sim * 2.0
 
-        valence_sim = 1.0 - abs(user.target_energy - song.valence)
-        score += valence_sim * 0.75
+        # Valence similarity: ×1.5 (max 1.5)
+        valence_sim = 1.0 - abs(user.target_valence - song.valence)
+        score += valence_sim * 1.5
 
-        score += song.danceability * 0.5
+        # Danceability: ×1.0 (max 1.0)
+        score += song.danceability * 1.0
 
+        # Acoustic bonus: +0.5
         if user.likes_acoustic and song.acousticness > 0.7:
-            score += 0.25
+            score += 0.5
 
         return round(score, 4)
 
-    def recommend(self, user: UserProfile, k: int = 5) -> List[Song]:
+    def recommend(self, user: UserProfile, k: int = 10) -> List[Song]:
         """Return the top-k songs sorted by score descending."""
         if k < 1:
             logger.warning(f"Guardrail: k={k} is invalid, setting to 1")
@@ -381,7 +464,7 @@ class Recommender:
             logger.debug(f"recommend(k={k}): top song='{results[0].title}' score={scored[0][1]:.2f}")
         return results
 
-    def recommend_with_scores(self, user: UserProfile, k: int = 5) -> List[Tuple[Song, float, str]]:
+    def recommend_with_scores(self, user: UserProfile, k: int = 10) -> List[Tuple[Song, float, str]]:
         """Return top-k songs with scores and explanations."""
         results = []
         for song in self.songs:
@@ -417,7 +500,7 @@ class Recommender:
 
         return " + ".join(reasons)
 
-    def recommend_from_text(self, text: str, k: int = 5) -> Tuple[MoodAnalysis, List[Tuple[Song, float, str]]]:
+    def recommend_from_text(self, text: str, k: int = 10) -> Tuple[MoodAnalysis, List[Tuple[Song, float, str]]]:
         """
         Full pipeline: text → mood analysis → recommendations.
         Includes input validation and guardrails.
@@ -486,7 +569,7 @@ def load_songs_as_objects(csv_path: str) -> List[Song]:
     ]
 
 
-def recommend_songs(user_prefs: Dict, songs: List[Dict], k: int = 5) -> List[Tuple[Dict, float, str]]:
+def recommend_songs(user_prefs: Dict, songs: List[Dict], k: int = 10) -> List[Tuple[Dict, float, str]]:
     """Score and rank songs by user preference, returning top k recommendations with explanations."""
 
     def calculate_score(user: Dict, song: Dict) -> Tuple[float, str]:
@@ -494,23 +577,23 @@ def recommend_songs(user_prefs: Dict, songs: List[Dict], k: int = 5) -> List[Tup
         reasons = []
 
         if song["genre"].lower() == user["favorite_genre"].lower():
-            score += 2.0
+            score += 3.0
             reasons.append("genre match")
         if song["mood"].lower() == user["favorite_mood"].lower():
-            score += 1.0
+            score += 2.0
             reasons.append("mood match")
 
         energy_sim = 1.0 - abs(user["target_energy"] - song["energy"])
-        score += energy_sim * 1.5
+        score += energy_sim * 2.0
 
-        valence_sim = 1.0 - abs(user["target_energy"] - song["valence"])
-        score += valence_sim * 0.75
+        valence_sim = 1.0 - abs(user["target_valence"] - song["valence"])
+        score += valence_sim * 1.5
 
-        score += song["danceability"] * 0.5
+        score += song["danceability"] * 1.0
 
         if user.get("likes_acoustic", False):
             if song["acousticness"] > 0.7:
-                score += 0.25
+                score += 0.5
                 reasons.append("acoustic preference")
 
         explanation = " + ".join(reasons) if reasons else "energy/audio profile match"

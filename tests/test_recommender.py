@@ -51,7 +51,7 @@ def make_small_recommender() -> Recommender:
 
 def test_recommend_returns_songs_sorted_by_score():
     user = UserProfile(favorite_genre="pop", favorite_mood="happy",
-                       target_energy=0.8, likes_acoustic=False)
+                       target_energy=0.8, target_valence=0.9, likes_acoustic=False)
     rec = make_small_recommender()
     results = rec.recommend(user, k=2)
     assert len(results) == 2
@@ -61,14 +61,14 @@ def test_recommend_returns_songs_sorted_by_score():
 
 def test_recommend_k_greater_than_catalog():
     rec = make_small_recommender()
-    user = UserProfile("pop", "happy", 0.5, False)
+    user = UserProfile("pop", "happy", 0.5, 0.9, False)
     results = rec.recommend(user, k=999)
     assert len(results) == len(rec.songs)
 
 
 def test_recommend_respects_k():
     rec = make_small_recommender()
-    user = UserProfile("pop", "happy", 0.5, False)
+    user = UserProfile("pop", "happy", 0.5, 0.9, False)
     assert len(rec.recommend(user, k=1)) == 1
     assert len(rec.recommend(user, k=3)) == 3
 
@@ -77,7 +77,7 @@ def test_recommend_respects_k():
 
 def test_explain_recommendation_returns_non_empty_string():
     user = UserProfile(favorite_genre="pop", favorite_mood="happy",
-                       target_energy=0.8, likes_acoustic=False)
+                       target_energy=0.8, target_valence=0.9, likes_acoustic=False)
     rec = make_small_recommender()
     explanation = rec.explain_recommendation(user, rec.songs[0])
     assert isinstance(explanation, str)
@@ -85,21 +85,21 @@ def test_explain_recommendation_returns_non_empty_string():
 
 
 def test_explain_includes_genre_match():
-    user = UserProfile("pop", "happy", 0.8, False)
+    user = UserProfile("pop", "happy", 0.8, 0.9, False)
     rec = make_small_recommender()
     explanation = rec.explain_recommendation(user, rec.songs[0])
     assert "genre match" in explanation.lower()
 
 
 def test_explain_includes_mood_match():
-    user = UserProfile("pop", "happy", 0.8, False)
+    user = UserProfile("pop", "happy", 0.8, 0.9, False)
     rec = make_small_recommender()
     explanation = rec.explain_recommendation(user, rec.songs[0])
     assert "mood match" in explanation.lower()
 
 
 def test_explain_mentions_acoustic_when_relevant():
-    user = UserProfile("lofi", "chill", 0.4, likes_acoustic=True)
+    user = UserProfile("lofi", "chill", 0.4, 0.6, likes_acoustic=True)
     rec = make_small_recommender()
     explanation = rec.explain_recommendation(user, rec.songs[1])
     assert "acoustic" in explanation.lower()
@@ -109,16 +109,16 @@ def test_explain_mentions_acoustic_when_relevant():
 
 def test_genre_match_boosts_score():
     rec = make_small_recommender()
-    user_pop = UserProfile("pop", "happy", 0.5, False)
-    user_rock = UserProfile("rock", "happy", 0.5, False)
+    user_pop = UserProfile("pop", "happy", 0.5, 0.9, False)
+    user_rock = UserProfile("rock", "happy", 0.5, 0.9, False)
     pop_song = rec.songs[0]
     assert rec.score_song(user_pop, pop_song) > rec.score_song(user_rock, pop_song)
 
 
 def test_mood_match_boosts_score():
     rec = make_small_recommender()
-    user_happy = UserProfile("jazz", "happy", 0.5, False)
-    user_chill = UserProfile("jazz", "chill", 0.5, False)
+    user_happy = UserProfile("jazz", "happy", 0.5, 0.9, False)
+    user_chill = UserProfile("jazz", "chill", 0.5, 0.6, False)
     happy_song = rec.songs[0]
     assert rec.score_song(user_happy, happy_song) > rec.score_song(user_chill, happy_song)
 
@@ -126,16 +126,16 @@ def test_mood_match_boosts_score():
 def test_acoustic_bonus_applied():
     rec = make_small_recommender()
     acoustic_song = rec.songs[1]
-    user_yes = UserProfile("lofi", "chill", 0.4, likes_acoustic=True)
-    user_no = UserProfile("lofi", "chill", 0.4, likes_acoustic=False)
+    user_yes = UserProfile("lofi", "chill", 0.4, 0.6, likes_acoustic=True)
+    user_no = UserProfile("lofi", "chill", 0.4, 0.6, likes_acoustic=False)
     assert rec.score_song(user_yes, acoustic_song) > rec.score_song(user_no, acoustic_song)
 
 
 def test_energy_similarity_affects_score():
     rec = make_small_recommender()
     high_energy_song = rec.songs[0]
-    user_close = UserProfile("jazz", "relaxed", 0.8, False)
-    user_far = UserProfile("jazz", "relaxed", 0.1, False)
+    user_close = UserProfile("jazz", "relaxed", 0.8, 0.7, False)
+    user_far = UserProfile("jazz", "relaxed", 0.1, 0.7, False)
     assert rec.score_song(user_close, high_energy_song) > rec.score_song(user_far, high_energy_song)
 
 
@@ -318,7 +318,7 @@ def test_functional_recommend_songs():
         {"id": 2, "title": "B", "artist": "Y", "genre": "lofi", "mood": "chill",
          "energy": 0.4, "tempo_bpm": 80, "valence": 0.6, "danceability": 0.5, "acousticness": 0.9},
     ]
-    prefs = {"favorite_genre": "pop", "favorite_mood": "happy", "target_energy": 0.8, "likes_acoustic": False}
+    prefs = {"favorite_genre": "pop", "favorite_mood": "happy", "target_energy": 0.8, "target_valence": 0.9, "likes_acoustic": False}
     results = recommend_songs(prefs, songs, k=2)
     assert len(results) == 2
     assert results[0][0]["genre"] == "pop"

@@ -153,3 +153,334 @@
 2026-04-27 15:36:33 | INFO     | Keyword analysis on: 'hungry...'
 2026-04-27 15:36:33 | INFO     | No keyword matches found — using default profile
 2026-04-27 15:36:33 | INFO     | Pipeline complete: mood=chill, confidence=0.2, top_song='Midnight Coding'
+2026-04-27 15:46:05 | INFO     | Loading songs from /Users/yinsontso/CodePath_AI_Spring_26/aapplied_ai_system_project/data/songs.csv...
+2026-04-27 15:46:05 | INFO     | Loaded 250 songs successfully
+2026-04-27 15:46:05 | INFO     | Recommender initialized with 250 songs
+2026-04-27 15:46:05 | INFO     | Loading songs from /Users/yinsontso/CodePath_AI_Spring_26/aapplied_ai_system_project/data/songs.csv...
+2026-04-27 15:46:05 | INFO     | Loaded 250 songs successfully
+2026-04-27 15:46:05 | INFO     | Recommender initialized with 250 songs
+2026-04-27 15:46:34 | INFO     | Pipeline started for: 'hungry...'
+2026-04-27 15:46:34 | INFO     | Keyword analysis on: 'hungry...'
+2026-04-27 15:46:34 | INFO     | No keyword matches found — using default profile
+2026-04-27 15:46:34 | INFO     | Pipeline complete: mood=chill, confidence=0.2, top_song='Midnight Coding'
+2026-04-27 15:46:46 | INFO     | Pipeline started for: 'hungry and sleep deprived...'
+2026-04-27 15:46:46 | INFO     | Keyword analysis on: 'hungry and sleep deprived...'
+2026-04-27 15:46:46 | INFO     | No keyword matches found — using default profile
+2026-04-27 15:46:46 | INFO     | Pipeline complete: mood=chill, confidence=0.2, top_song='Midnight Coding'
+2026-04-27 15:47:22 | INFO     | Pipeline started for: 'excited for my road trip...'
+2026-04-27 15:47:22 | INFO     | Keyword analysis on: 'excited for my road trip...'
+2026-04-27 15:47:22 | INFO     | Mood detected: energetic (confidence=0.55, keywords=['excited'])
+2026-04-27 15:47:22 | INFO     | Pipeline complete: mood=energetic, confidence=0.55, top_song='Rocket Fuel'
+2026-04-27 15:50:25 | INFO     | Pipeline started for: 'sudden rain ended my outdoor plans, i love the sounds of rain drops hitting the ...'
+2026-04-27 15:50:25 | INFO     | Keyword analysis on: 'sudden rain ended my outdoor plans, i love the sounds of rain drops hitting the ...'
+2026-04-27 15:50:25 | INFO     | Mood detected: romantic (confidence=0.55, keywords=['love'])
+2026-04-27 15:50:25 | INFO     | Pipeline complete: mood=romantic, confidence=0.55, top_song='Satin Sheets'
+2026-04-27 19:59:00 | INFO     | Pipeline started for: 'im hungry...'
+2026-04-27 19:59:00 | INFO     | Keyword analysis on: 'im hungry...'
+2026-04-27 19:59:00 | INFO     | No keyword matches found — using default profile
+2026-04-27 19:59:00 | INFO     | Pipeline complete: mood=chill, confidence=0.2, top_song='Midnight Coding'
+2026-04-27 20:35:28 | INFO     | Loading songs from /Users/yinsontso/CodePath_AI_Spring_26/aapplied_ai_system_project/data/songs.csv...
+2026-04-27 20:35:28 | INFO     | Loaded 250 songs successfully
+2026-04-27 20:35:28 | INFO     | Recommender initialized with 250 songs
+2026-04-27 20:35:29 | INFO     | Loading songs from /Users/yinsontso/CodePath_AI_Spring_26/aapplied_ai_system_project/data/songs.csv...
+2026-04-27 20:35:29 | INFO     | Loaded 250 songs successfully
+2026-04-27 20:35:29 | INFO     | Recommender initialized with 250 songs
+2026-04-27 20:42:00 | INFO     | Loading songs from /Users/yinsontso/CodePath_AI_Spring_26/aapplied_ai_system_project/data/songs.csv...
+2026-04-27 20:42:00 | INFO     | Loaded 250 songs successfully
+2026-04-27 20:42:00 | INFO     | Recommender initialized with 250 songs
+2026-04-27 20:42:37 | INFO     | Loading songs from /Users/yinsontso/CodePath_AI_Spring_26/aapplied_ai_system_project/data/songs.csv...
+2026-04-27 20:42:37 | INFO     | Loaded 250 songs successfully
+2026-04-27 20:42:37 | INFO     | Recommender initialized with 250 songs
+2026-04-27 20:42:37 | INFO     | Loading songs from /Users/yinsontso/CodePath_AI_Spring_26/aapplied_ai_system_project/data/songs.csv...
+2026-04-27 20:42:37 | INFO     | Loaded 250 songs successfully
+2026-04-27 20:42:37 | INFO     | Recommender initialized with 250 songs
+2026-04-27 20:43:01 | INFO     | Pipeline started for: 'I am very hungry...'
+2026-04-27 20:43:01 | INFO     | Keyword analysis on: 'I am very hungry...'
+2026-04-27 20:43:01 | INFO     | No keyword matches found — using default profile
+2026-04-27 20:43:01 | INFO     | Pipeline complete: mood=chill, confidence=0.2, top_song='Midnight Coding'
+2026-04-27 20:45:40 | INFO     | Pipeline started for: 'just came back from work and really sleepy...'
+2026-04-27 20:45:40 | INFO     | Keyword analysis on: 'just came back from work and really sleepy...'
+2026-04-27 20:45:40 | INFO     | Mood detected: focused (confidence=0.55, keywords=['work'])
+2026-04-27 20:45:40 | INFO     | Pipeline complete: mood=focused, confidence=0.55, top_song='Lofi Hip-Hop Study'
+2026-04-27 20:46:56 | INFO     | Pipeline started for: 'i'm excited for tomorrow's music festival...'
+2026-04-27 20:46:56 | INFO     | Keyword analysis on: 'i'm excited for tomorrow's music festival...'
+2026-04-27 20:46:56 | INFO     | Mood detected: energetic (confidence=0.55, keywords=['excited'])
+2026-04-27 20:46:56 | INFO     | Pipeline complete: mood=energetic, confidence=0.55, top_song='Rocket Fuel'
+2026-04-27 20:48:08 | INFO     | Pipeline started for: 'Seek...'
+2026-04-27 20:48:08 | INFO     | Keyword analysis on: 'Seek...'
+2026-04-27 20:48:08 | INFO     | No keyword matches found — using default profile
+2026-04-27 20:48:08 | INFO     | Pipeline complete: mood=chill, confidence=0.2, top_song='Midnight Coding'
+2026-04-27 20:49:26 | INFO     | Pipeline started for: 'Seek...'
+2026-04-27 20:49:26 | INFO     | Keyword analysis on: 'Seek...'
+2026-04-27 20:49:26 | INFO     | No keyword matches found — using default profile
+2026-04-27 20:49:26 | INFO     | Pipeline complete: mood=chill, confidence=0.2, top_song='Midnight Coding'
+2026-04-27 20:49:26 | INFO     | Pipeline started for: 'Seek...'
+2026-04-27 20:49:26 | INFO     | Keyword analysis on: 'Seek...'
+2026-04-27 20:49:26 | INFO     | No keyword matches found — using default profile
+2026-04-27 20:49:26 | INFO     | Pipeline complete: mood=chill, confidence=0.2, top_song='Midnight Coding'
+2026-04-27 20:49:27 | INFO     | Pipeline started for: 'Seek...'
+2026-04-27 20:49:27 | INFO     | Keyword analysis on: 'Seek...'
+2026-04-27 20:49:27 | INFO     | No keyword matches found — using default profile
+2026-04-27 20:49:27 | INFO     | Pipeline complete: mood=chill, confidence=0.2, top_song='Midnight Coding'
+2026-04-27 20:49:28 | INFO     | Pipeline started for: 'Seek...'
+2026-04-27 20:49:28 | INFO     | Keyword analysis on: 'Seek...'
+2026-04-27 20:49:28 | INFO     | No keyword matches found — using default profile
+2026-04-27 20:49:28 | INFO     | Pipeline complete: mood=chill, confidence=0.2, top_song='Midnight Coding'
+2026-04-27 20:49:34 | INFO     | Pipeline started for: 'awesome...'
+2026-04-27 20:49:34 | INFO     | Keyword analysis on: 'awesome...'
+2026-04-27 20:49:34 | INFO     | No keyword matches found — using default profile
+2026-04-27 20:49:34 | INFO     | Pipeline complete: mood=chill, confidence=0.2, top_song='Midnight Coding'
+2026-04-27 20:49:37 | INFO     | Pipeline started for: 'awesome...'
+2026-04-27 20:49:37 | INFO     | Keyword analysis on: 'awesome...'
+2026-04-27 20:49:37 | INFO     | No keyword matches found — using default profile
+2026-04-27 20:49:37 | INFO     | Pipeline complete: mood=chill, confidence=0.2, top_song='Midnight Coding'
+2026-04-27 20:49:54 | INFO     | Pipeline started for: 'I am working on the project...'
+2026-04-27 20:49:54 | INFO     | Keyword analysis on: 'I am working on the project...'
+2026-04-27 20:49:54 | INFO     | Mood detected: focused (confidence=0.55, keywords=['work'])
+2026-04-27 20:49:54 | INFO     | Pipeline complete: mood=focused, confidence=0.55, top_song='Lofi Hip-Hop Study'
+2026-04-27 20:51:23 | INFO     | Pipeline started for: 'tired...'
+2026-04-27 20:51:23 | INFO     | Keyword analysis on: 'tired...'
+2026-04-27 20:51:23 | INFO     | Mood detected: peaceful (confidence=0.55, keywords=['tired'])
+2026-04-27 20:51:23 | INFO     | Pipeline complete: mood=peaceful, confidence=0.55, top_song='Peaceful Morning'
+2026-04-27 20:51:33 | INFO     | Pipeline started for: 'enraged...'
+2026-04-27 20:51:33 | INFO     | Keyword analysis on: 'enraged...'
+2026-04-27 20:51:33 | INFO     | Mood detected: aggressive (confidence=0.55, keywords=['rage'])
+2026-04-27 20:51:33 | INFO     | Pipeline complete: mood=aggressive, confidence=0.55, top_song='Thunder Road'
+2026-04-27 20:53:03 | INFO     | Pipeline started for: 'tired...'
+2026-04-27 20:53:03 | INFO     | Keyword analysis on: 'tired...'
+2026-04-27 20:53:03 | INFO     | Mood detected: peaceful (confidence=0.55, keywords=['tired'])
+2026-04-27 20:53:03 | INFO     | Pipeline complete: mood=peaceful, confidence=0.55, top_song='Peaceful Morning'
+2026-04-27 20:53:38 | INFO     | Pipeline started for: 'excited and tired...'
+2026-04-27 20:53:38 | INFO     | Keyword analysis on: 'excited and tired...'
+2026-04-27 20:53:38 | INFO     | Mood detected: energetic (confidence=0.55, keywords=['excited'])
+2026-04-27 20:53:38 | INFO     | Pipeline complete: mood=energetic, confidence=0.55, top_song='Rocket Fuel'
+2026-04-27 20:53:49 | INFO     | Pipeline started for: 'enraged and peacful...'
+2026-04-27 20:53:49 | INFO     | Keyword analysis on: 'enraged and peacful...'
+2026-04-27 20:53:49 | INFO     | Mood detected: aggressive (confidence=0.55, keywords=['rage'])
+2026-04-27 20:53:49 | INFO     | Pipeline complete: mood=aggressive, confidence=0.55, top_song='Thunder Road'
+2026-04-27 20:55:28 | INFO     | Pipeline started for: 'hungry...'
+2026-04-27 20:55:28 | INFO     | Keyword analysis on: 'hungry...'
+2026-04-27 20:55:28 | INFO     | No keyword matches found — using default profile
+2026-04-27 20:55:28 | INFO     | Pipeline complete: mood=chill, confidence=0.2, top_song='Midnight Coding'
+2026-04-27 20:55:38 | INFO     | Pipeline started for: 'full...'
+2026-04-27 20:55:38 | INFO     | Keyword analysis on: 'full...'
+2026-04-27 20:55:38 | INFO     | No keyword matches found — using default profile
+2026-04-27 20:55:38 | INFO     | Pipeline complete: mood=chill, confidence=0.2, top_song='Midnight Coding'
+2026-04-27 20:55:43 | INFO     | Pipeline started for: 'full and hungry...'
+2026-04-27 20:55:43 | INFO     | Keyword analysis on: 'full and hungry...'
+2026-04-27 20:55:43 | INFO     | No keyword matches found — using default profile
+2026-04-27 20:55:43 | INFO     | Pipeline complete: mood=chill, confidence=0.2, top_song='Midnight Coding'
+2026-04-27 20:59:36 | INFO     | Loading songs from /Users/yinsontso/CodePath_AI_Spring_26/aapplied_ai_system_project/data/songs.csv...
+2026-04-27 20:59:36 | INFO     | Loaded 250 songs successfully
+2026-04-27 20:59:36 | INFO     | Recommender initialized with 250 songs
+2026-04-27 20:59:57 | INFO     | Loading songs from /Users/yinsontso/CodePath_AI_Spring_26/aapplied_ai_system_project/data/songs.csv...
+2026-04-27 20:59:57 | INFO     | Loaded 250 songs successfully
+2026-04-27 20:59:57 | INFO     | Recommender initialized with 250 songs
+2026-04-27 21:00:05 | INFO     | Loading songs from /Users/yinsontso/CodePath_AI_Spring_26/aapplied_ai_system_project/data/songs.csv...
+2026-04-27 21:00:05 | INFO     | Loaded 250 songs successfully
+2026-04-27 21:00:05 | INFO     | Recommender initialized with 250 songs
+2026-04-27 21:00:32 | INFO     | Loading songs from /Users/yinsontso/CodePath_AI_Spring_26/aapplied_ai_system_project/data/songs.csv...
+2026-04-27 21:00:32 | INFO     | Loaded 250 songs successfully
+2026-04-27 21:00:32 | INFO     | Recommender initialized with 250 songs
+2026-04-27 21:00:32 | INFO     | Loading songs from /Users/yinsontso/CodePath_AI_Spring_26/aapplied_ai_system_project/data/songs.csv...
+2026-04-27 21:00:32 | INFO     | Loaded 250 songs successfully
+2026-04-27 21:00:32 | INFO     | Recommender initialized with 250 songs
+2026-04-27 21:00:46 | INFO     | Pipeline started for: 'hungry...'
+2026-04-27 21:00:46 | INFO     | Keyword analysis on: 'hungry...'
+2026-04-27 21:00:46 | INFO     | No keyword matches found — using default profile
+2026-04-27 21:00:46 | INFO     | Pipeline complete: mood=chill, confidence=0.15, top_song='Midnight Coding'
+2026-04-27 21:01:16 | INFO     | Pipeline started for: 'furious and focused...'
+2026-04-27 21:01:16 | INFO     | Keyword analysis on: 'furious and focused...'
+2026-04-27 21:01:16 | INFO     | Multi-mood blend: ['focused', 'aggressive'], energy=0.65, valence=0.38, confidence=0.59
+2026-04-27 21:01:16 | INFO     | Pipeline complete: mood=focused, confidence=0.59, top_song='Morning Commute'
+2026-04-27 21:02:41 | INFO     | Pipeline started for: 'focused...'
+2026-04-27 21:02:41 | INFO     | Keyword analysis on: 'focused...'
+2026-04-27 21:02:41 | INFO     | Single mood detected: focused (confidence=0.55, keywords=['focus'])
+2026-04-27 21:02:41 | INFO     | Pipeline complete: mood=focused, confidence=0.55, top_song='Lofi Hip-Hop Study'
+2026-04-27 21:02:45 | INFO     | Pipeline started for: 'furious and focused...'
+2026-04-27 21:02:45 | INFO     | Keyword analysis on: 'furious and focused...'
+2026-04-27 21:02:45 | INFO     | Multi-mood blend: ['focused', 'aggressive'], energy=0.65, valence=0.38, confidence=0.59
+2026-04-27 21:02:45 | INFO     | Pipeline complete: mood=focused, confidence=0.59, top_song='Morning Commute'
+2026-04-27 21:02:48 | INFO     | Pipeline started for: 'furious and focused...'
+2026-04-27 21:02:48 | INFO     | Keyword analysis on: 'furious and focused...'
+2026-04-27 21:02:48 | INFO     | Multi-mood blend: ['focused', 'aggressive'], energy=0.65, valence=0.38, confidence=0.59
+2026-04-27 21:02:48 | INFO     | Pipeline complete: mood=focused, confidence=0.59, top_song='Morning Commute'
+2026-04-27 21:02:48 | INFO     | Pipeline started for: 'furious and focused...'
+2026-04-27 21:02:48 | INFO     | Keyword analysis on: 'furious and focused...'
+2026-04-27 21:02:48 | INFO     | Multi-mood blend: ['focused', 'aggressive'], energy=0.65, valence=0.38, confidence=0.59
+2026-04-27 21:02:48 | INFO     | Pipeline complete: mood=focused, confidence=0.59, top_song='Morning Commute'
+2026-04-27 21:02:49 | INFO     | Pipeline started for: 'furious and focused...'
+2026-04-27 21:02:49 | INFO     | Keyword analysis on: 'furious and focused...'
+2026-04-27 21:02:49 | INFO     | Multi-mood blend: ['focused', 'aggressive'], energy=0.65, valence=0.38, confidence=0.59
+2026-04-27 21:02:49 | INFO     | Pipeline complete: mood=focused, confidence=0.59, top_song='Morning Commute'
+2026-04-27 21:02:49 | INFO     | Pipeline started for: 'furious and focused...'
+2026-04-27 21:02:49 | INFO     | Keyword analysis on: 'furious and focused...'
+2026-04-27 21:02:49 | INFO     | Multi-mood blend: ['focused', 'aggressive'], energy=0.65, valence=0.38, confidence=0.59
+2026-04-27 21:02:49 | INFO     | Pipeline complete: mood=focused, confidence=0.59, top_song='Morning Commute'
+2026-04-27 21:02:49 | INFO     | Pipeline started for: 'furious and focused...'
+2026-04-27 21:02:49 | INFO     | Keyword analysis on: 'furious and focused...'
+2026-04-27 21:02:49 | INFO     | Multi-mood blend: ['focused', 'aggressive'], energy=0.65, valence=0.38, confidence=0.59
+2026-04-27 21:02:49 | INFO     | Pipeline complete: mood=focused, confidence=0.59, top_song='Morning Commute'
+2026-04-27 21:02:49 | INFO     | Pipeline started for: 'furious and focused...'
+2026-04-27 21:02:49 | INFO     | Keyword analysis on: 'furious and focused...'
+2026-04-27 21:02:49 | INFO     | Multi-mood blend: ['focused', 'aggressive'], energy=0.65, valence=0.38, confidence=0.59
+2026-04-27 21:02:49 | INFO     | Pipeline complete: mood=focused, confidence=0.59, top_song='Morning Commute'
+2026-04-27 21:02:50 | INFO     | Pipeline started for: 'furious and focused...'
+2026-04-27 21:02:50 | INFO     | Keyword analysis on: 'furious and focused...'
+2026-04-27 21:02:50 | INFO     | Multi-mood blend: ['focused', 'aggressive'], energy=0.65, valence=0.38, confidence=0.59
+2026-04-27 21:02:50 | INFO     | Pipeline complete: mood=focused, confidence=0.59, top_song='Morning Commute'
+2026-04-27 21:02:50 | INFO     | Pipeline started for: 'furious and focused...'
+2026-04-27 21:02:50 | INFO     | Keyword analysis on: 'furious and focused...'
+2026-04-27 21:02:50 | INFO     | Multi-mood blend: ['focused', 'aggressive'], energy=0.65, valence=0.38, confidence=0.59
+2026-04-27 21:02:50 | INFO     | Pipeline complete: mood=focused, confidence=0.59, top_song='Morning Commute'
+2026-04-27 21:02:54 | INFO     | Pipeline started for: 'furious...'
+2026-04-27 21:02:54 | INFO     | Keyword analysis on: 'furious...'
+2026-04-27 21:02:54 | INFO     | Single mood detected: aggressive (confidence=0.55, keywords=['furious'])
+2026-04-27 21:02:54 | INFO     | Pipeline complete: mood=aggressive, confidence=0.55, top_song='Thunder Road'
+2026-04-27 21:03:01 | INFO     | Pipeline started for: 'furious furious and focused...'
+2026-04-27 21:03:01 | INFO     | Keyword analysis on: 'furious furious and focused...'
+2026-04-27 21:03:01 | INFO     | Multi-mood blend: ['focused', 'aggressive'], energy=0.65, valence=0.38, confidence=0.59
+2026-04-27 21:03:01 | INFO     | Pipeline complete: mood=focused, confidence=0.59, top_song='Morning Commute'
+2026-04-27 21:03:02 | INFO     | Pipeline started for: 'furious furious and focused...'
+2026-04-27 21:03:02 | INFO     | Keyword analysis on: 'furious furious and focused...'
+2026-04-27 21:03:02 | INFO     | Multi-mood blend: ['focused', 'aggressive'], energy=0.65, valence=0.38, confidence=0.59
+2026-04-27 21:03:02 | INFO     | Pipeline complete: mood=focused, confidence=0.59, top_song='Morning Commute'
+2026-04-27 21:03:14 | INFO     | Pipeline started for: 'not furious, furious and focused...'
+2026-04-27 21:03:14 | INFO     | Keyword analysis on: 'not furious, furious and focused...'
+2026-04-27 21:03:14 | INFO     | Multi-mood blend: ['focused', 'aggressive'], energy=0.65, valence=0.38, confidence=0.59
+2026-04-27 21:03:14 | INFO     | Pipeline complete: mood=focused, confidence=0.59, top_song='Morning Commute'
+2026-04-27 21:03:14 | INFO     | Pipeline started for: 'not furious, furious and focused...'
+2026-04-27 21:03:14 | INFO     | Keyword analysis on: 'not furious, furious and focused...'
+2026-04-27 21:03:14 | INFO     | Multi-mood blend: ['focused', 'aggressive'], energy=0.65, valence=0.38, confidence=0.59
+2026-04-27 21:03:14 | INFO     | Pipeline complete: mood=focused, confidence=0.59, top_song='Morning Commute'
+2026-04-27 21:03:15 | INFO     | Pipeline started for: 'not furious, furious and focused...'
+2026-04-27 21:03:15 | INFO     | Keyword analysis on: 'not furious, furious and focused...'
+2026-04-27 21:03:15 | INFO     | Multi-mood blend: ['focused', 'aggressive'], energy=0.65, valence=0.38, confidence=0.59
+2026-04-27 21:03:15 | INFO     | Pipeline complete: mood=focused, confidence=0.59, top_song='Morning Commute'
+2026-04-27 21:03:15 | INFO     | Pipeline started for: 'not furious, furious and focused...'
+2026-04-27 21:03:15 | INFO     | Keyword analysis on: 'not furious, furious and focused...'
+2026-04-27 21:03:15 | INFO     | Multi-mood blend: ['focused', 'aggressive'], energy=0.65, valence=0.38, confidence=0.59
+2026-04-27 21:03:15 | INFO     | Pipeline complete: mood=focused, confidence=0.59, top_song='Morning Commute'
+2026-04-27 21:03:15 | INFO     | Pipeline started for: 'not furious, furious and focused...'
+2026-04-27 21:03:15 | INFO     | Keyword analysis on: 'not furious, furious and focused...'
+2026-04-27 21:03:15 | INFO     | Multi-mood blend: ['focused', 'aggressive'], energy=0.65, valence=0.38, confidence=0.59
+2026-04-27 21:03:15 | INFO     | Pipeline complete: mood=focused, confidence=0.59, top_song='Morning Commute'
+2026-04-27 21:03:20 | INFO     | Pipeline started for: 'not furious, furious and focused, depressed...'
+2026-04-27 21:03:20 | INFO     | Keyword analysis on: 'not furious, furious and focused, depressed...'
+2026-04-27 21:03:20 | INFO     | Multi-mood blend: ['focused', 'aggressive'], energy=0.65, valence=0.38, confidence=0.59
+2026-04-27 21:03:20 | INFO     | Pipeline complete: mood=focused, confidence=0.59, top_song='Morning Commute'
+2026-04-27 21:03:21 | INFO     | Pipeline started for: 'not furious, furious and focused, depressed...'
+2026-04-27 21:03:21 | INFO     | Keyword analysis on: 'not furious, furious and focused, depressed...'
+2026-04-27 21:03:21 | INFO     | Multi-mood blend: ['focused', 'aggressive'], energy=0.65, valence=0.38, confidence=0.59
+2026-04-27 21:03:21 | INFO     | Pipeline complete: mood=focused, confidence=0.59, top_song='Morning Commute'
+2026-04-27 21:03:21 | INFO     | Pipeline started for: 'not furious, furious and focused, depressed...'
+2026-04-27 21:03:21 | INFO     | Keyword analysis on: 'not furious, furious and focused, depressed...'
+2026-04-27 21:03:21 | INFO     | Multi-mood blend: ['focused', 'aggressive'], energy=0.65, valence=0.38, confidence=0.59
+2026-04-27 21:03:21 | INFO     | Pipeline complete: mood=focused, confidence=0.59, top_song='Morning Commute'
+2026-04-27 21:03:21 | INFO     | Pipeline started for: 'not furious, furious and focused, depressed...'
+2026-04-27 21:03:21 | INFO     | Keyword analysis on: 'not furious, furious and focused, depressed...'
+2026-04-27 21:03:21 | INFO     | Multi-mood blend: ['focused', 'aggressive'], energy=0.65, valence=0.38, confidence=0.59
+2026-04-27 21:03:21 | INFO     | Pipeline complete: mood=focused, confidence=0.59, top_song='Morning Commute'
+2026-04-27 21:03:22 | INFO     | Pipeline started for: 'not furious, furious and focused, depressed...'
+2026-04-27 21:03:22 | INFO     | Keyword analysis on: 'not furious, furious and focused, depressed...'
+2026-04-27 21:03:22 | INFO     | Multi-mood blend: ['focused', 'aggressive'], energy=0.65, valence=0.38, confidence=0.59
+2026-04-27 21:03:22 | INFO     | Pipeline complete: mood=focused, confidence=0.59, top_song='Morning Commute'
+2026-04-27 21:03:26 | INFO     | Pipeline started for: 'not furious but furious and focused, depressed...'
+2026-04-27 21:03:26 | INFO     | Keyword analysis on: 'not furious but furious and focused, depressed...'
+2026-04-27 21:03:26 | INFO     | Multi-mood blend: ['focused', 'aggressive'], energy=0.65, valence=0.38, confidence=0.59
+2026-04-27 21:03:26 | INFO     | Pipeline complete: mood=focused, confidence=0.59, top_song='Morning Commute'
+2026-04-27 21:03:27 | INFO     | Pipeline started for: 'not furious but furious and focused, depressed...'
+2026-04-27 21:03:27 | INFO     | Keyword analysis on: 'not furious but furious and focused, depressed...'
+2026-04-27 21:03:27 | INFO     | Multi-mood blend: ['focused', 'aggressive'], energy=0.65, valence=0.38, confidence=0.59
+2026-04-27 21:03:27 | INFO     | Pipeline complete: mood=focused, confidence=0.59, top_song='Morning Commute'
+2026-04-27 21:03:27 | INFO     | Pipeline started for: 'not furious but furious and focused, depressed...'
+2026-04-27 21:03:27 | INFO     | Keyword analysis on: 'not furious but furious and focused, depressed...'
+2026-04-27 21:03:27 | INFO     | Multi-mood blend: ['focused', 'aggressive'], energy=0.65, valence=0.38, confidence=0.59
+2026-04-27 21:03:27 | INFO     | Pipeline complete: mood=focused, confidence=0.59, top_song='Morning Commute'
+2026-04-27 21:03:27 | INFO     | Pipeline started for: 'not furious but furious and focused, depressed...'
+2026-04-27 21:03:27 | INFO     | Keyword analysis on: 'not furious but furious and focused, depressed...'
+2026-04-27 21:03:27 | INFO     | Multi-mood blend: ['focused', 'aggressive'], energy=0.65, valence=0.38, confidence=0.59
+2026-04-27 21:03:27 | INFO     | Pipeline complete: mood=focused, confidence=0.59, top_song='Morning Commute'
+2026-04-27 21:03:27 | INFO     | Pipeline started for: 'not furious but furious and focused, depressed...'
+2026-04-27 21:03:27 | INFO     | Keyword analysis on: 'not furious but furious and focused, depressed...'
+2026-04-27 21:03:27 | INFO     | Multi-mood blend: ['focused', 'aggressive'], energy=0.65, valence=0.38, confidence=0.59
+2026-04-27 21:03:27 | INFO     | Pipeline complete: mood=focused, confidence=0.59, top_song='Morning Commute'
+2026-04-27 21:03:44 | INFO     | Pipeline started for: 'depressed but focused...'
+2026-04-27 21:03:44 | INFO     | Keyword analysis on: 'depressed but focused...'
+2026-04-27 21:03:44 | INFO     | Single mood detected: focused (confidence=0.55, keywords=['focus'])
+2026-04-27 21:03:44 | INFO     | Pipeline complete: mood=focused, confidence=0.55, top_song='Lofi Hip-Hop Study'
+2026-04-27 21:03:54 | INFO     | Pipeline started for: 'depressed but focused and furious...'
+2026-04-27 21:03:54 | INFO     | Keyword analysis on: 'depressed but focused and furious...'
+2026-04-27 21:03:54 | INFO     | Multi-mood blend: ['focused', 'aggressive'], energy=0.65, valence=0.38, confidence=0.59
+2026-04-27 21:03:54 | INFO     | Pipeline complete: mood=focused, confidence=0.59, top_song='Morning Commute'
+2026-04-27 21:04:11 | INFO     | Pipeline started for: 'focused...'
+2026-04-27 21:04:11 | INFO     | Keyword analysis on: 'focused...'
+2026-04-27 21:04:11 | INFO     | Single mood detected: focused (confidence=0.55, keywords=['focus'])
+2026-04-27 21:04:11 | INFO     | Pipeline complete: mood=focused, confidence=0.55, top_song='Lofi Hip-Hop Study'
+2026-04-27 21:04:17 | INFO     | Pipeline started for: 'focused, ecstatic...'
+2026-04-27 21:04:17 | INFO     | Keyword analysis on: 'focused, ecstatic...'
+2026-04-27 21:04:17 | INFO     | Single mood detected: focused (confidence=0.55, keywords=['focus'])
+2026-04-27 21:04:17 | INFO     | Pipeline complete: mood=focused, confidence=0.55, top_song='Lofi Hip-Hop Study'
+2026-04-27 21:04:23 | INFO     | Pipeline started for: 'focused,depressed...'
+2026-04-27 21:04:23 | INFO     | Keyword analysis on: 'focused,depressed...'
+2026-04-27 21:04:23 | INFO     | Single mood detected: focused (confidence=0.55, keywords=['focus'])
+2026-04-27 21:04:23 | INFO     | Pipeline complete: mood=focused, confidence=0.55, top_song='Lofi Hip-Hop Study'
+2026-04-27 21:05:17 | INFO     | Pipeline started for: 'focused, depressed...'
+2026-04-27 21:05:17 | INFO     | Keyword analysis on: 'focused, depressed...'
+2026-04-27 21:05:17 | INFO     | Single mood detected: focused (confidence=0.55, keywords=['focus'])
+2026-04-27 21:05:17 | INFO     | Pipeline complete: mood=focused, confidence=0.55, top_song='Lofi Hip-Hop Study'
+2026-04-27 21:05:22 | INFO     | Pipeline started for: 'focused,excited...'
+2026-04-27 21:05:22 | INFO     | Keyword analysis on: 'focused,excited...'
+2026-04-27 21:05:22 | INFO     | Multi-mood blend: ['energetic', 'focused'], energy=0.62, valence=0.70, confidence=0.59
+2026-04-27 21:05:22 | INFO     | Pipeline complete: mood=energetic, confidence=0.59, top_song='Rocket Fuel'
+2026-04-27 21:05:27 | INFO     | Pipeline started for: 'focused, sad...'
+2026-04-27 21:05:27 | INFO     | Keyword analysis on: 'focused, sad...'
+2026-04-27 21:05:27 | INFO     | Multi-mood blend: ['focused', 'melancholic'], energy=0.35, valence=0.40, confidence=0.63
+2026-04-27 21:05:27 | INFO     | Pipeline complete: mood=focused, confidence=0.63, top_song='Whispered Dreams'
+2026-04-27 21:05:34 | INFO     | Pipeline started for: 'focused...'
+2026-04-27 21:05:34 | INFO     | Keyword analysis on: 'focused...'
+2026-04-27 21:05:34 | INFO     | Single mood detected: focused (confidence=0.55, keywords=['focus'])
+2026-04-27 21:05:34 | INFO     | Pipeline complete: mood=focused, confidence=0.55, top_song='Lofi Hip-Hop Study'
+2026-04-27 21:05:38 | INFO     | Pipeline started for: 'focused, sad...'
+2026-04-27 21:05:38 | INFO     | Keyword analysis on: 'focused, sad...'
+2026-04-27 21:05:38 | INFO     | Multi-mood blend: ['focused', 'melancholic'], energy=0.35, valence=0.40, confidence=0.63
+2026-04-27 21:05:38 | INFO     | Pipeline complete: mood=focused, confidence=0.63, top_song='Whispered Dreams'
+2026-04-27 21:10:17 | INFO     | Loading songs from /Users/yinsontso/CodePath_AI_Spring_26/aapplied_ai_system_project/data/songs.csv...
+2026-04-27 21:10:17 | INFO     | Loaded 250 songs successfully
+2026-04-27 21:10:17 | INFO     | Recommender initialized with 250 songs
+2026-04-27 21:10:22 | INFO     | Loading songs from /Users/yinsontso/CodePath_AI_Spring_26/aapplied_ai_system_project/data/songs.csv...
+2026-04-27 21:10:22 | INFO     | Loaded 250 songs successfully
+2026-04-27 21:10:22 | INFO     | Recommender initialized with 250 songs
+2026-04-27 21:10:27 | INFO     | Loading songs from /Users/yinsontso/CodePath_AI_Spring_26/aapplied_ai_system_project/data/songs.csv...
+2026-04-27 21:10:27 | INFO     | Loaded 250 songs successfully
+2026-04-27 21:10:27 | INFO     | Recommender initialized with 250 songs
+2026-04-27 21:10:47 | INFO     | Loading songs from /Users/yinsontso/CodePath_AI_Spring_26/aapplied_ai_system_project/data/songs.csv...
+2026-04-27 21:10:47 | INFO     | Loaded 250 songs successfully
+2026-04-27 21:10:47 | INFO     | Recommender initialized with 250 songs
+2026-04-27 21:10:47 | INFO     | Loading songs from /Users/yinsontso/CodePath_AI_Spring_26/aapplied_ai_system_project/data/songs.csv...
+2026-04-27 21:10:47 | INFO     | Loaded 250 songs successfully
+2026-04-27 21:10:47 | INFO     | Recommender initialized with 250 songs
+2026-04-27 21:11:01 | INFO     | Pipeline started for: 'focused and sad...'
+2026-04-27 21:11:01 | INFO     | Keyword analysis on: 'focused and sad...'
+2026-04-27 21:11:01 | INFO     | Multi-mood blend: ['focused', 'melancholic'], energy=0.35, valence=0.40, confidence=0.63
+2026-04-27 21:11:01 | INFO     | Pipeline complete: mood=focused, confidence=0.63, top_song='Whispered Dreams'
+2026-04-27 21:11:45 | INFO     | Pipeline started for: 'sad...'
+2026-04-27 21:11:45 | INFO     | Keyword analysis on: 'sad...'
+2026-04-27 21:11:45 | INFO     | Single mood detected: melancholic (confidence=0.55, keywords=['sad'])
+2026-04-27 21:11:45 | INFO     | Pipeline complete: mood=melancholic, confidence=0.55, top_song='Paper Boats'
+2026-04-27 21:12:10 | INFO     | Pipeline started for: 'blue...'
+2026-04-27 21:12:10 | INFO     | Keyword analysis on: 'blue...'
+2026-04-27 21:12:10 | INFO     | No keyword matches found — using default profile
+2026-04-27 21:12:10 | INFO     | Pipeline complete: mood=chill, confidence=0.15, top_song='Midnight Coding'
+2026-04-27 21:12:38 | INFO     | Pipeline started for: 'mukhammadali threatened me...'
+2026-04-27 21:12:38 | INFO     | Keyword analysis on: 'mukhammadali threatened me...'
+2026-04-27 21:12:38 | INFO     | Single mood detected: aggressive (confidence=0.55, keywords=['mad'])
+2026-04-27 21:12:38 | INFO     | Pipeline complete: mood=aggressive, confidence=0.55, top_song='Thunder Road'
+2026-04-27 21:12:47 | INFO     | Pipeline started for: 'i feel blue...'
+2026-04-27 21:12:47 | INFO     | Keyword analysis on: 'i feel blue...'
+2026-04-27 21:12:47 | INFO     | No keyword matches found — using default profile
+2026-04-27 21:12:47 | INFO     | Pipeline complete: mood=chill, confidence=0.15, top_song='Midnight Coding'
+2026-04-27 21:12:50 | INFO     | Pipeline started for: 'the blues...'
+2026-04-27 21:12:50 | INFO     | Keyword analysis on: 'the blues...'
+2026-04-27 21:12:50 | INFO     | No keyword matches found — using default profile
+2026-04-27 21:12:50 | INFO     | Pipeline complete: mood=chill, confidence=0.15, top_song='Midnight Coding'

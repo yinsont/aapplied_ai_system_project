@@ -2,28 +2,31 @@ graph TD
     A["🧑 User Input<br/>(free-form text)"] --> B["🛡️ Input Validator<br/>(guardrails)"]
     B -->|"❌ rejected"| R["⚠️ Error Response<br/>(reason logged)"]
     B -->|"✅ valid"| C["🧹 Text Sanitizer"]
-    C --> D{"Analysis Mode?"}
-    D -->|"keyword"| E["📝 Keyword Analyzer<br/>(18 rule sets)"]
-    D -->|"AI"| F["🤖 Anthropic API<br/>(Claude Sonnet)"]
-    F -->|"parse fail"| E
+    C --> E["📝 Keyword Mood Analyzer<br/>(18 rule sets)"]
     E --> G["🎭 MoodAnalysis<br/>(mood, energy, valence,<br/>genre, confidence)"]
-    F --> G
     G --> H["👤 UserProfile<br/>Conversion"]
     H --> I["📊 Scoring Engine<br/>(weighted formula)"]
-    J["💾 Song Catalog<br/>(100 songs, CSV)"] --> I
+    J["💾 songs.csv<br/>(250 songs)"] --> I
     I --> K["🏆 Ranked Results<br/>(top-k songs)"]
     K --> L["💬 Explanation<br/>Generator"]
     L --> M["🎧 Playlist Output<br/>(songs + scores +<br/>explanations)"]
 
-    N["📋 Logger"] -.->|"logs all decisions"| B
+    N["📋 Logger<br/>(recommender.log)"] -.->|"logs decisions"| B
     N -.-> E
-    N -.-> F
     N -.-> I
+
+    O["🧪 Evaluation Harness<br/>(evaluate.py)"] -.->|"runs test cases"| A
+    P["✅ Unit Tests<br/>(35 tests)"] -.->|"validates"| E
+    P -.-> I
 
     style A fill:#1e293b,stroke:#60a5fa,color:#fff
     style B fill:#1e293b,stroke:#f59e0b,color:#fff
     style R fill:#1e293b,stroke:#ef4444,color:#fff
+    style E fill:#1e293b,stroke:#8b5cf6,color:#fff
     style G fill:#1e293b,stroke:#a78bfa,color:#fff
     style I fill:#1e293b,stroke:#10b981,color:#fff
+    style J fill:#1e293b,stroke:#06b6d4,color:#fff
     style M fill:#1e293b,stroke:#60a5fa,color:#fff
     style N fill:#1e293b,stroke:#94a3b8,color:#fff
+    style O fill:#1e293b,stroke:#f97316,color:#fff
+    style P fill:#1e293b,stroke:#22c55e,color:#fff

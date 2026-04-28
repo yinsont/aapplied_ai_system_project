@@ -29,6 +29,7 @@ def demo_original_profiles(songs_dicts):
                 "favorite_genre": "rock",
                 "favorite_mood": "angry",
                 "target_energy": 0.1,
+                "target_valence": 0.2,
                 "likes_acoustic": False,
             },
         },
@@ -38,6 +39,7 @@ def demo_original_profiles(songs_dicts):
                 "favorite_genre": "pop",
                 "favorite_mood": "energetic",
                 "target_energy": 0.95,
+                "target_valence": 0.85,
                 "likes_acoustic": True,
             },
         },
@@ -47,13 +49,14 @@ def demo_original_profiles(songs_dicts):
                 "favorite_genre": "lofi",
                 "favorite_mood": "peaceful",
                 "target_energy": 0.0,
+                "target_valence": 0.6,
                 "likes_acoustic": True,
             },
         },
     ]
 
     for profile in user_profiles:
-        recommendations = recommend_songs(profile["prefs"], songs_dicts, k=5)
+        recommendations = recommend_songs(profile["prefs"], songs_dicts, k=10)
         print("=" * 70)
         genre = profile["prefs"]["favorite_genre"].upper()
         mood = profile["prefs"]["favorite_mood"].upper()
@@ -64,7 +67,7 @@ def demo_original_profiles(songs_dicts):
             song, score, explanation = rec
             print(f"#{i} {song['title']}")
             print(f"    Artist: {song['artist']}")
-            print(f"    Score:  {score:.2f}/6.25")
+            print(f"    Score:  {score:.2f}/10")
             print(f"    Reasons: {explanation}")
             print()
         print()
@@ -155,7 +158,7 @@ def interactive_mode(songs_objects):
         if not text:
             continue
         try:
-            analysis, recs = rec.recommend_from_text(text, k=5)
+            analysis, recs = rec.recommend_from_text(text, k=10)
         except ValueError as e:
             print(f"  ⚠️  {e}\n")
             continue
