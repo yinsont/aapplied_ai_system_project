@@ -183,5 +183,5 @@ The valence bug was a particularly good lesson. Although the system looked corre
 
 ## 🎥 Demo Walkthrough
 
-> [Loom video link here]
+(https://www.loom.com/share/990270418b684b8d9968605875c793a3)
 
