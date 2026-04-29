@@ -484,3 +484,12 @@
 2026-04-27 21:12:50 | INFO     | Keyword analysis on: 'the blues...'
 2026-04-27 21:12:50 | INFO     | No keyword matches found — using default profile
 2026-04-27 21:12:50 | INFO     | Pipeline complete: mood=chill, confidence=0.15, top_song='Midnight Coding'
+2026-04-28 10:42:06 | INFO     | Loading songs from /Users/yinsontso/CodePath_AI_Spring_26/aapplied_ai_system_project/data/songs.csv...
+2026-04-28 10:42:06 | INFO     | Loaded 250 songs successfully
+2026-04-28 10:42:06 | INFO     | Recommender initialized with 250 songs
+2026-04-28 10:42:20 | INFO     | Loading songs from /Users/yinsontso/CodePath_AI_Spring_26/aapplied_ai_system_project/data/songs.csv...
+2026-04-28 10:42:20 | INFO     | Loaded 250 songs successfully
+2026-04-28 10:42:20 | INFO     | Recommender initialized with 250 songs
+2026-04-28 10:42:20 | INFO     | Loading songs from /Users/yinsontso/CodePath_AI_Spring_26/aapplied_ai_system_project/data/songs.csv...
+2026-04-28 10:42:20 | INFO     | Loaded 250 songs successfully
+2026-04-28 10:42:20 | INFO     | Recommender initialized with 250 songs

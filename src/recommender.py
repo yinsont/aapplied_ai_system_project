@@ -3,13 +3,16 @@ recommender.py — AI-Powered Music Mood Recommender
 
 Core module containing:
 - Data classes (Song, UserProfile, MoodAnalysis)
-- Keyword-based mood detection (offline)
+- Keyword-based mood detection with multi-mood blending
 - Recommendation engine with scoring, ranking, and explanations
 - Input validation, guardrails, and structured logging
+
+All processing is local — no external APIs are used.
+The system analyzes text using 18 keyword rule sets and scores songs
+against a 250-track CSV catalog.
 """
 
 import csv
-import json
 import re
 import logging
 from typing import List, Dict, Tuple, Optional
@@ -317,94 +320,6 @@ def analyze_mood_keywords(text: str) -> MoodAnalysis:
         reasoning=reasoning,
         source="keyword",
     )
-
-
-# ---------------------------------------------------------------------------
-# Mood Detection — AI-powered (uses Anthropic API)
-# ---------------------------------------------------------------------------
-
-KNOWN_GENRES = [
-    "pop", "rock", "lofi", "jazz", "electronic", "hip-hop", "soul", "metal",
-    "classical", "reggae", "indie rock", "indie pop", "ambient", "synthwave",
-    "dark ambient", "country", "blues", "punk", "house", "dubstep", "techno",
-    "afrobeats", "downtempo", "indie folk", "progressive rock", "folk",
-    "bossa nova", "funk", "gospel", "singer-songwriter",
-]
-
-KNOWN_MOODS = [
-    "happy", "chill", "intense", "relaxed", "moody", "focused", "dreamy",
-    "energetic", "romantic", "aggressive", "introspective", "inspirational",
-    "playful", "adventurous", "melancholic", "peaceful", "dark", "nostalgic",
-]
-
-MOOD_ANALYSIS_PROMPT = """You are a music mood analyst. Given the user's text describing how they feel or what they're doing, analyze their emotional state and suggest music parameters.
-
-Available genres: {genres}
-Available moods: {moods}
-
-Respond with ONLY a JSON object (no markdown, no explanation) with these fields:
-- "detected_mood": one of the available moods above
-- "energy_level": float 0.0-1.0 (0=very calm, 1=very intense)
-- "valence_level": float 0.0-1.0 (0=very negative/sad, 1=very positive/happy)
-- "suggested_genre": one of the available genres above
-- "likes_acoustic": boolean
-- "confidence": float 0.0-1.0
-- "reasoning": brief explanation of your analysis
-
-User text: "{text}"
-"""
-
-
-def build_mood_prompt(text: str) -> str:
-    """Build the prompt for the AI mood analysis."""
-    return MOOD_ANALYSIS_PROMPT.format(
-        genres=", ".join(KNOWN_GENRES),
-        moods=", ".join(KNOWN_MOODS),
-        text=text,
-    )
-
-
-def parse_mood_response(text: str, raw_response: str) -> MoodAnalysis:
-    """
-    Parse a JSON response from the AI into a MoodAnalysis.
-    Falls back to keyword analysis if parsing fails.
-    """
-    try:
-        cleaned = re.sub(r"```json\s*|```\s*", "", raw_response).strip()
-        data = json.loads(cleaned)
-
-        required = ["detected_mood", "energy_level", "suggested_genre"]
-        for field_name in required:
-            if field_name not in data:
-                raise KeyError(f"Missing required field: {field_name}")
-
-        detected_mood = data["detected_mood"]
-        if detected_mood not in KNOWN_MOODS:
-            logger.warning(f"AI returned unknown mood '{detected_mood}', falling back")
-            raise ValueError(f"Unknown mood: {detected_mood}")
-
-        suggested_genre = data["suggested_genre"]
-        if suggested_genre not in KNOWN_GENRES:
-            logger.warning(f"AI returned unknown genre '{suggested_genre}', falling back")
-            raise ValueError(f"Unknown genre: {suggested_genre}")
-
-        result = MoodAnalysis(
-            text=text,
-            detected_mood=detected_mood,
-            energy_level=float(data.get("energy_level", 0.5)),
-            valence_level=float(data.get("valence_level", 0.5)),
-            suggested_genre=suggested_genre,
-            likes_acoustic=bool(data.get("likes_acoustic", False)),
-            confidence=float(data.get("confidence", 0.5)),
-            reasoning=data.get("reasoning", "AI analysis"),
-            source="ai",
-        )
-        logger.info(f"AI analysis successful: mood={result.detected_mood}, confidence={result.confidence}")
-        return result
-
-    except (json.JSONDecodeError, KeyError, ValueError, TypeError) as e:
-        logger.warning(f"AI response parsing failed ({e}), falling back to keywords")
-        return analyze_mood_keywords(text)
 
 
 # ---------------------------------------------------------------------------

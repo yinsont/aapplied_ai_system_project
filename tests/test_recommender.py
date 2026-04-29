@@ -15,7 +15,7 @@ Run from project root:
 
 from src.recommender import (
     Song, UserProfile, MoodAnalysis, Recommender,
-    analyze_mood_keywords, build_mood_prompt, parse_mood_response,
+    analyze_mood_keywords,
     validate_input_text, sanitize_text,
     load_songs, recommend_songs,
 )
@@ -238,43 +238,6 @@ def test_mood_analysis_to_prefs_dict():
     prefs = analysis.to_prefs_dict()
     assert prefs["favorite_genre"] == "pop"
     assert prefs["target_energy"] == 0.9
-
-
-# ── AI response parsing ─────────────────────────────────────────────────
-
-def test_parse_mood_response_valid_json():
-    raw = '{"detected_mood":"happy","energy_level":0.8,"valence_level":0.9,"suggested_genre":"pop","likes_acoustic":false,"confidence":0.9,"reasoning":"upbeat"}'
-    result = parse_mood_response("I feel great!", raw)
-    assert result.detected_mood == "happy"
-    assert result.source == "ai"
-
-
-def test_parse_mood_response_with_markdown_fences():
-    raw = '```json\n{"detected_mood":"chill","energy_level":0.3,"valence_level":0.5,"suggested_genre":"lofi","likes_acoustic":true,"confidence":0.7,"reasoning":"relaxed"}\n```'
-    result = parse_mood_response("just vibing", raw)
-    assert result.detected_mood == "chill"
-
-
-def test_parse_mood_response_invalid_json_falls_back():
-    result = parse_mood_response("I'm really angry!!!", "not valid json {{{")
-    assert isinstance(result, MoodAnalysis)
-    assert result.detected_mood == "aggressive"
-    assert result.source == "keyword"
-
-
-def test_parse_mood_response_unknown_mood_falls_back():
-    raw = '{"detected_mood":"UNKNOWNMOOD","energy_level":0.5,"valence_level":0.5,"suggested_genre":"pop","likes_acoustic":false,"confidence":0.5,"reasoning":"test"}'
-    result = parse_mood_response("test text", raw)
-    assert result.source == "keyword"
-
-
-# ── Prompt building ──────────────────────────────────────────────────────
-
-def test_build_mood_prompt_contains_text():
-    prompt = build_mood_prompt("I feel so happy today")
-    assert "I feel so happy today" in prompt
-    assert "pop" in prompt
-    assert "happy" in prompt
 
 
 # ── Full pipeline ────────────────────────────────────────────────────────

@@ -1,31 +1,33 @@
 graph TD
-    A["🧑 User Input<br/>(free-form text)"] --> B["🛡️ Input Validator<br/>(guardrails)"]
+    A["🧑 User Input<br/>(free-form text)"] --> B["🛡️ Input Validator<br/>(length, injection, empty)"]
     B -->|"❌ rejected"| R["⚠️ Error Response<br/>(reason logged)"]
     B -->|"✅ valid"| C["🧹 Text Sanitizer"]
-    C --> E["📝 Keyword Mood Analyzer<br/>(18 rule sets)"]
-    E --> G["🎭 MoodAnalysis<br/>(mood, energy, valence,<br/>genre, confidence)"]
-    G --> H["👤 UserProfile<br/>Conversion"]
-    H --> I["📊 Scoring Engine<br/>(weighted formula)"]
-    J["💾 songs.csv<br/>(250 songs)"] --> I
-    I --> K["🏆 Ranked Results<br/>(top-k songs)"]
-    K --> L["💬 Explanation<br/>Generator"]
-    L --> M["🎧 Playlist Output<br/>(songs + scores +<br/>explanations)"]
+    C --> E["🧠 Keyword Mood Analyzer<br/>(18 rule sets · multi-mood blending)"]
+    E --> G["🎭 MoodAnalysis<br/>(mood · energy · valence<br/>genre · confidence)"]
+    G --> H["👤 UserProfile<br/>(target_energy + target_valence)"]
+    H --> I["📊 Scoring Engine<br/>(0–10 weighted formula)"]
+    J["💾 songs.csv<br/>(250 songs · local)"] --> I
+    I --> K["🏆 Top 10 Ranked Songs"]
+    K --> L["💬 Explanation Generator"]
+    L --> M["🎧 Playlist Output<br/>(songs + scores + reasons)"]
 
-    N["📋 Logger<br/>(recommender.log)"] -.->|"logs decisions"| B
+    N["📋 Logger<br/>(recommender.log)"] -.->|"logs all decisions"| B
     N -.-> E
     N -.-> I
 
-    O["🧪 Evaluation Harness<br/>(evaluate.py)"] -.->|"runs test cases"| A
-    P["✅ Unit Tests<br/>(35 tests)"] -.->|"validates"| E
-    P -.-> I
+    O["🧪 Evaluation Harness<br/>(evaluate.py · 10 test cases)"] -.->|"runs test cases"| A
+    P["✅ Unit Tests<br/>(30 tests)"] -.->|"validates"| E
+    P -.->|"validates"| I
 
     style A fill:#1e293b,stroke:#60a5fa,color:#fff
     style B fill:#1e293b,stroke:#f59e0b,color:#fff
     style R fill:#1e293b,stroke:#ef4444,color:#fff
     style E fill:#1e293b,stroke:#8b5cf6,color:#fff
     style G fill:#1e293b,stroke:#a78bfa,color:#fff
+    style H fill:#1e293b,stroke:#a78bfa,color:#fff
     style I fill:#1e293b,stroke:#10b981,color:#fff
     style J fill:#1e293b,stroke:#06b6d4,color:#fff
+    style K fill:#1e293b,stroke:#10b981,color:#fff
     style M fill:#1e293b,stroke:#60a5fa,color:#fff
     style N fill:#1e293b,stroke:#94a3b8,color:#fff
     style O fill:#1e293b,stroke:#f97316,color:#fff
