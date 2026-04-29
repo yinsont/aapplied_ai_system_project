@@ -1,4 +1,4 @@
-# 🎧 AI Music Mood Recommender
+# CodePath AI110 Final Project, Extension of AI Music Mood Recommender
 
 An AI-powered music recommendation system that detects your mood from natural language text and generates personalized playlists. Everything runs locally — no external APIs, no cloud services. Just Python, your words, and a 250-song catalog.
 
@@ -8,7 +8,7 @@ Built as a final project for **AI110: Foundations of AI Engineering** (CodePath,
 
 ## 📌 Base Project
 
-This project extends **Project 2 (Module 2): Music Song Recommender**. The original system scored songs using a weighted formula based on manually defined user profiles where users had to specify numerical parameters like `target_energy: 0.8` and `favorite_genre: "lofi"`. This extension replaces manual configuration with natural language mood detection — you just describe how you feel, and the system figures out the rest.
+This project extends **Project 3: Music Song Recommender**. The original system scored songs using a weighted formula based on manually defined user profiles where users had to specify numerical parameters like `target_energy: 0.8` and `favorite_genre: "lofi"`. This extension replaces manual configuration with natural language mood detection — you just describe how you feel, and the system figures out the rest.
 
 ---
 
@@ -22,7 +22,7 @@ The system supports multi-mood blending (e.g., "sad but also angry" averages bot
 
 ## 🏗️ Architecture Overview
 
-![System Architecture](assets/architecture-diagram.png)
+![System Architecture](assets/image.png)
 
 The system follows a linear pipeline with a testing layer:
 
@@ -140,11 +140,11 @@ Test: Unrecognized keywords
 
 ## 🧠 Design Decisions
 
-**Why keyword-based analysis instead of an LLM?** The keyword system runs with zero latency, zero cost, and zero external dependencies. It's fully deterministic — the same input always produces the same output — which makes testing straightforward and behavior predictable. The 18 rule sets cover the most common emotional expressions, and multi-mood blending handles complex inputs like "sad but also angry."
+**Why keyword-based analysis instead of an LLM?** The keyword system runs with zero latency, zero cost, and zero external dependencies. It's fully deterministic, the same input always produces the same output, which makes testing straightforward and behavior predictable. The 18 rule sets cover the most common emotional expressions, and multi-mood blending handles complex inputs like "sad but also angry."
 
 **Why a 0–10 weighted scoring formula instead of embeddings?** The scoring formula is fully transparent. Users can see exactly why each song was recommended: genre match (+3), mood match (+2), energy similarity (up to +2), valence similarity (up to +1.5), danceability (up to +1), acoustic bonus (+0.5). This supports the requirement for clear explanation of how the AI works. Embedding-based approaches would be more powerful but less explainable.
 
-**Why separate target_energy and target_valence?** An earlier version used `target_energy` for both energy and valence comparisons, which meant sad inputs (low valence) were scored the same as calm inputs (low energy). Separating the two means "sad but focused" correctly favors songs that are low-positivity but medium-energy, rather than just low-energy across the board.
+**Why separate target_energy and target_valence?** An earlier version used `target_energy` for both energy and valence comparisons, which meant sad inputs (low valence) were scored the same as calm inputs (low energy). Separating the two means "sad but focused" correctly favors songs that are low positivity but medium energy, rather than just low energy across the board.
 
 **Why input validation as a separate layer?** Separating guardrails from business logic follows defensive programming principles. The validator catches malformed, empty, or unsafe inputs before they reach the mood analyzer, preventing garbage-in-garbage-out failures and logging every rejection for debugging.
 
@@ -169,7 +169,7 @@ Test: Unrecognized keywords
 | Functional API backward compat | 1 | All pass |
 | Evaluation harness (evaluate.py) | 10 cases | All pass |
 
-The system handled edge cases well: neutral text without mood keywords defaults to "chill/lofi" with a 15% confidence and a helpful suggestion to rephrase. Multi-mood inputs like "sad but also angry" correctly blend energy parameters (0.30 + 0.90 → 0.70). Script injection is caught and rejected. The low-confidence warning guides users toward better phrasing rather than silently returning bad results.
+The system handled edge cases well: neutral text without mood keywords defaults to "chill/lofi" with a 15% confidence and a helpful suggestion to rephrase. Multimood inputs like "sad but also angry" correctly blend energy parameters (0.30 + 0.90 → 0.70). Script injection is caught and rejected. The low-confidence warning guides users toward better phrasing rather than silently returning bad results.
 
 ---
 
@@ -177,7 +177,7 @@ The system handled edge cases well: neutral text without mood keywords defaults 
 
 Building this project taught me that reliability engineering matters more than model sophistication. The keyword analyzer is conceptually simple, but making it trustworthy required input validation, confidence scoring, graceful fallbacks, multi-mood handling, clear explanations, comprehensive tests, and structured logging. These practices are what make an AI system safe to actually deploy. I now think of AI engineering less as "making the AI smarter" and more as "making the system honest about what it knows and doesn't know."
 
-The valence bug was a particularly good lesson — the system looked correct because it returned plausible songs, but it was completely ignoring positivity/negativity in its scoring. Only by testing with specific edge cases ("focused but sad") did the bug become visible. This reinforced why structured evaluation matters more than spot-checking.
+The valence bug was a particularly good lesson. Although the system looked correct because it returned plausible songs, but it was completely ignoring positivity/negativity in its scoring. Only by human testing and the use of specific edge cases ("focused but sad") did the bug become visible. This reinforced why structured evaluation matters more than spot checking.
 
 ---
 
@@ -185,8 +185,3 @@ The valence bug was a particularly good lesson — the system looked correct bec
 
 > [Loom video link here]
 
----
-
-## 📄 License
-
-This project was built for educational purposes as part of CodePath AI110.
