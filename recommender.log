@@ -838,3 +838,11 @@
 2026-04-28 22:33:30 | INFO     | Keyword analysis on: 'famished...'
 2026-04-28 22:33:30 | INFO     | No keyword matches found — using default profile
 2026-04-28 22:33:30 | INFO     | Pipeline complete: mood=chill, confidence=0.15, top_song='Midnight Coding'
+2026-04-28 22:39:30 | INFO     | Pipeline started for: 'Angry and famished...'
+2026-04-28 22:39:30 | INFO     | Keyword analysis on: 'Angry and famished...'
+2026-04-28 22:39:30 | INFO     | Single mood detected: aggressive (confidence=0.55, keywords=['angry'])
+2026-04-28 22:39:30 | INFO     | Pipeline complete: mood=aggressive, confidence=0.55, top_song='Thunder Road'
+2026-04-28 22:39:38 | INFO     | Pipeline started for: 'Angry and excited...'
+2026-04-28 22:39:38 | INFO     | Keyword analysis on: 'Angry and excited...'
+2026-04-28 22:39:38 | INFO     | Multi-mood blend: ['energetic', 'aggressive'], energy=0.88, valence=0.53, confidence=0.64
+2026-04-28 22:39:38 | INFO     | Pipeline complete: mood=energetic, confidence=0.64, top_song='Rocket Fuel'
