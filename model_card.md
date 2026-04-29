@@ -19,7 +19,7 @@ This system uses natural language processing to detect a user's emotional state 
 
 **Keyword coverage is English-centric.** The 18 keyword rule sets only cover English emotional vocabulary. Non-English text or culturally specific emotional expressions will fall through to the neutral default, producing generic recommendations.
 
-**Genre representation is uneven.** The 100-song catalog over-represents Western genres (pop, rock, electronic, hip-hop) and under-represents genres like K-pop, Afrobeats, Latin, and classical Indian music. Users whose taste falls outside the catalog's range will get lower-quality recommendations.
+**Genre representation is uneven.** The 250-song catalog over-represents Western genres (pop, rock, electronic, hip-hop) and under-represents genres like K-pop, Afrobeats, Latin, and classical Indian music. Users whose taste falls outside the catalog's range will get lower-quality recommendations.
 
 **Mood is simplified to a single category.** Real human emotion is complex and layered. Someone can feel "nostalgic but also energized." The system maps to a single mood label, which loses nuance. The confidence score partially addresses this by signaling when the system is uncertain.
 

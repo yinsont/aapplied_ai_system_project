@@ -1,6 +1,6 @@
 # CodePath AI110 Final Project, Extension of AI Music Mood Recommender
 
-An AI-powered music recommendation system that detects your mood from natural language text and generates personalized playlists. Everything runs locally — no external APIs, no cloud services. Just Python, your words, and a 250-song catalog.
+An AI-powered music recommendation system that detects your mood from natural language text and generates personalized playlists.
 
 Built as a final project for **AI110: Foundations of AI Engineering** (CodePath, Spring 2026).
 
